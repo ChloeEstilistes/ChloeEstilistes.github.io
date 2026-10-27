@@ -396,7 +396,11 @@
   function setLang(l){
     root.lang=l;
     btns.forEach(function(b){b.setAttribute('aria-pressed', String(b.dataset.lang===l));});
-    var msg = l==='ca' ? 'Hola! Voldria demanar cita.' : '¡Hola! Me gustaría pedir cita.';
+    var deMaps = false;
+    try { deMaps = /utm_source=google/.test(location.search) || sessionStorage.getItem('origen')==='maps'; if (deMaps) sessionStorage.setItem('origen','maps'); } catch(e) { deMaps = /utm_source=google/.test(location.search); }
+    var msg = deMaps
+      ? (l==='ca' ? 'Hola! Us he trobat a Google Maps i voldria demanar cita.' : '¡Hola! Os he encontrado en Google Maps y me gustaría pedir cita.')
+      : (l==='ca' ? 'Hola! He vist la vostra web i voldria demanar cita.' : '¡Hola! He visto vuestra web y me gustaría pedir cita.');
     document.getElementById('wa').href='https://wa.me/34610273609?text='+encodeURIComponent(msg);
     try{localStorage.setItem('lang',l);}catch(e){}
     renderStatus();
