@@ -1,24 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>Chloe Estilistes · Peluquería en Rambla de Prim, Barcelona</title>
-<meta name="description" content="Chloe Estilistes, peluquería en Rambla de Prim 45 bis, Barcelona (Sant Martí, junto a Diagonal Mar). Color, mechas, balayage, cortes, alisados y tratamientos. Pide cita por WhatsApp.">
-<meta name="theme-color" content="#121110">
-<link rel="preload" as="image" href="img/salon-interior.webp?v=3" fetchpriority="high">
-<link rel="canonical" href="https://chloeestilistes.com/">
-<meta property="og:url" content="https://chloeestilistes.com/">
-<meta property="og:locale" content="es_ES">
-<meta property="og:locale:alternate" content="ca_ES">
-<meta property="og:site_name" content="Chloe Estilistes">
-<meta property="og:image" content="https://chloeestilistes.com/img/og-chloe-estilistes.jpg?v=2">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:title" content="Chloe Estilistes · Peluquería en Barcelona">
-<meta property="og:description" content="Rambla de Prim 45 bis · Sant Martí, Barcelona. Pide cita por WhatsApp.">
-<meta property="og:type" content="website">
-<link rel="preload" href="/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
+<meta content="Chloe Estilistes, peluquería en Rambla de Prim 45 bis, Barcelona (Sant Martí, junto a Diagonal Mar). Color, mechas, balayage, cortes, alisados y tratamientos. Pide cita por WhatsApp." name="description"/>
+<meta content="#121110" name="theme-color"/>
+<link as="image" fetchpriority="high" href="/img/salon-interior.webp?v=3" rel="preload"/>
+<link href="https://chloeestilistes.com/" rel="canonical"/>
+<link href="https://chloeestilistes.com/" hreflang="es" rel="alternate"/>
+<link href="https://chloeestilistes.com/ca/" hreflang="ca" rel="alternate"/>
+<link href="https://chloeestilistes.com/" hreflang="x-default" rel="alternate"/>
+<meta content="https://chloeestilistes.com/" property="og:url"/>
+<meta content="es_ES" property="og:locale"/>
+<meta content="ca_ES" property="og:locale:alternate"/>
+<meta content="Chloe Estilistes" property="og:site_name"/>
+<meta content="https://chloeestilistes.com/img/og-chloe-estilistes.jpg?v=2" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Chloe Estilistes · Peluquería en Barcelona" property="og:title"/>
+<meta content="Rambla de Prim 45 bis · Sant Martí, Barcelona. Pide cita por WhatsApp." property="og:description"/>
+<meta content="website" property="og:type"/>
+<link as="font" crossorigin="" href="/fonts/josefin-sans.woff2" rel="preload" type="font/woff2"/>
 <style>@font-face{font-family:"Josefin Sans";font-style:normal;font-weight:300 600;font-display:swap;src:url(/fonts/josefin-sans.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
 <script type="application/ld+json">
 {
@@ -251,177 +255,304 @@
   html:not([lang="ca"]) [data-ca], html[lang="ca"] [data-es]{display:none !important}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
+<style>
+  .lang a{background:rgba(18,17,16,.55); backdrop-filter:blur(6px); border:1px solid var(--line); color:var(--muted); font-size:12px; letter-spacing:.12em; padding:6px 11px; border-radius:20px; text-decoration:none}
+  .lang a[aria-current="true"]{border-color:var(--gold); color:var(--gold)}
+  /* servicios con botón de cita */
+  .svc{display:grid; gap:10px}
+  .svc article{padding:16px 18px; background:var(--card); border:1px solid var(--line); border-radius:14px}
+  .svc h3{font-size:17px; font-weight:600; letter-spacing:.02em}
+  .svc p{margin-top:4px; font-size:14px; color:var(--muted); line-height:1.5}
+  .svc .acts{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-size:14px; text-decoration:none; padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:rgba(18,17,16,.6)}
+  .pill.wa{border-color:rgba(37,211,102,.55); color:#7be3a3}
+  .pill.gold{border-color:var(--gold); color:var(--gold)}
+  .pill svg{width:18px; height:18px; flex:none}
+  @media (hover:hover){.pill:hover{border-color:var(--gold)}}
+  /* tarjeta regalo */
+  .gift{position:relative; overflow:hidden; padding:22px 18px; border-radius:16px; border:1px solid var(--gold-soft); background:linear-gradient(135deg, rgba(201,169,106,.16), rgba(18,17,16,.9) 55%), var(--card)}
+  .gift .giftcard{width:min(78%,280px); aspect-ratio:1.6; margin:0 auto 16px; border-radius:12px; border:1px solid var(--gold); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:radial-gradient(circle at 50% 50%, #0b0a09 0 2px, transparent 3px) 0 0/22px 22px, #161412; box-shadow:0 14px 40px rgba(0,0,0,.55); transform:rotate(-3deg)}
+  .gift .giftcard img{width:62%}
+  .gift .giftcard span{font-size:11px; letter-spacing:.3em; color:var(--gold); text-transform:uppercase}
+  .gift h3{font-size:20px; font-weight:400; text-align:center}
+  .gift p{margin-top:6px; font-size:15px; color:var(--muted); text-align:center; line-height:1.5}
+  .gift .acts{display:flex; justify-content:center; margin-top:14px}
+  /* preguntas frecuentes */
+  .faq details{border-bottom:1px solid var(--line); padding:12px 0}
+  .faq details:last-child{border-bottom:0}
+  .faq summary{cursor:pointer; list-style:none; font-size:16px; font-weight:400; display:flex; justify-content:space-between; gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+"; color:var(--gold); font-size:18px; line-height:1}
+  .faq details[open] summary:after{content:"–"}
+  .faq details p{margin-top:8px; font-size:15px; color:var(--muted); line-height:1.55}
+  /* mapa (solo se carga si la clienta lo pide) */
+  .map{position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--card); aspect-ratio:4/3}
+  .map iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .map button{position:absolute; inset:0; width:100%; background:transparent; border:0; color:var(--silver); font:inherit; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:20px; text-align:center}
+  .map button b{font-size:17px; font-weight:400}
+  .map button small{font-size:12px; color:var(--muted); max-width:300px; line-height:1.5}
+  .map svg{width:34px; height:34px; color:var(--gold)}
+  /* páginas de servicio */
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:calc(14px + env(safe-area-inset-top)) 16px 0; max-width:520px; margin:0 auto}
+  .top .home img{width:120px}
+  .top .lang{position:static}
+  .page h1{font-size:30px; font-weight:400; line-height:1.15; margin-top:22px}
+  .page .sub{margin-top:8px; color:var(--gold); font-size:14px; letter-spacing:.06em}
+  .page .intro p{margin-top:14px; font-size:16px; line-height:1.6; color:var(--silver)}
+  .page ol{margin:0; padding-left:20px; display:grid; gap:8px; font-size:15px; line-height:1.5; color:var(--muted)}
+  .page ol li::marker{color:var(--gold)}
+  .crumbs{font-size:12px; color:var(--muted); margin-top:18px; letter-spacing:.04em}
+  .crumbs a{color:var(--muted)}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "inLanguage": "es",
+ "url": "https://chloeestilistes.com/",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "¿Cómo pido cita?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Escríbenos por WhatsApp al 610 27 36 09 o llámanos al 936 03 55 15. Dinos qué servicio quieres y qué día y franja te va mejor, y te confirmamos la hora."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Me podéis decir el precio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Depende del largo y de la cantidad de pelo, así que preferimos verlo contigo. Pregúntanos por WhatsApp y te orientamos."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Cuánto dura un balayage?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Entre tres y cuatro horas, según el largo y el resultado que buscas. Por eso es importante decirnos el servicio al pedir cita: así te reservamos el tiempo que necesitas."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Atendéis a hombres?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí, hacemos corte y color para caballero. No somos barbería."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Habláis catalán?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí, te atendemos en castellano y en catalán, en el salón y por WhatsApp."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Tenéis tarjetas regalo?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. Pídenosla por WhatsApp y te la preparamos para que la recojas en el salón."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Dónde aparco?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Estamos en la Rambla de Prim, 45 bis (Sant Martí), junto a Diagonal Mar. En la zona hay aparcamiento regulado (zona verde)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Tenéis otros salones?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Chloe Estilistes es un único salón, en la Rambla de Prim de Barcelona. No tenemos relación con otras peluquerías de nombre parecido."
+   }
+  }
+ ]
+}
+</script>
+<script>try{if(localStorage.getItem('lang')==='ca'&&!/[?&]es\b/.test(location.search)&&!document.referrer.match(/chloeestilistes\.com/))location.replace('/ca/');}catch(e){}</script>
 </head>
 <body>
-
 <header class="hero">
-  <img src="img/salon-interior.webp?v=3" alt="Interior del salón Chloe Estilistes" width="1000" height="1333" fetchpriority="high">
-  <div class="lang" role="group" aria-label="Idioma">
-    <button type="button" data-lang="es" aria-pressed="true">ES</button>
-    <button type="button" data-lang="ca" aria-pressed="false">CA</button>
-  </div>
-  <div class="hero-in">
-    <h1><img class="logo" src="img/logo-chloe-estilistes.webp" alt="Chloe Estilistes" width="900" height="526"><span class="sr-only"> · Peluquería en Rambla de Prim, Sant Martí (Barcelona)</span></h1>
-    <p class="tag"><span data-es>Peluquería · Barcelona</span><span data-ca>Perruqueria · Barcelona</span></p>
-    <p class="addr">Rambla de Prim, 45 bis · Sant Martí</p>
-    <div class="chips">
-      <a class="chip" href="https://www.google.com/maps/search/?api=1&query=Chloe%20Estilistas&query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" target="_blank" rel="noopener">
-        <span class="stars">★★★★★</span> 4,9 · <span data-es>230 reseñas</span><span data-ca>230 ressenyes</span>
-      </a>
-      <span class="chip" id="status" aria-live="polite"><span class="dot"></span><span id="statusTxt"></span></span>
-    </div>
-  </div>
+<img alt="Interior del salón Chloe Estilistes" fetchpriority="high" height="1333" src="/img/salon-interior.webp?v=3" width="1000"/>
+<div aria-label="Idioma" class="lang" role="group"><a data-l="es" href="/" hreflang="es">ES</a><a data-l="ca" href="/ca/" hreflang="ca">CA</a></div>
+<div class="hero-in">
+<h1><img alt="Chloe Estilistes" class="logo" height="526" src="/img/logo-chloe-estilistes.webp" width="900"/><span class="sr-only"> · Peluquería en Rambla de Prim, Sant Martí (Barcelona)</span></h1>
+<p class="tag">Peluquería · Barcelona</p>
+<p class="addr">Rambla de Prim, 45 bis · Sant Martí</p>
+<div class="chips">
+<a class="chip" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">
+<span class="stars">★★★★★</span> 4,9 · 230 reseñas
+</a>
+<span aria-live="polite" class="chip" id="status"><span class="dot"></span><span id="statusTxt"></span></span>
+</div>
+</div>
 </header>
-
 <main class="wrap">
-  <nav>
-    <a class="btn" href="tel:+34936035515">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 7 7L16 14l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>
-      <span><span data-es>Llamar al salón</span><span data-ca>Trucar al saló</span><small>936 03 55 15</small></span><span class="arr">›</span>
-    </a>
-    <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=Chloe%20Estilistas&destination_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-      <span><span data-es>Cómo llegar</span><span data-ca>Com arribar-hi</span><small><span data-es>Junto a Diagonal Mar</span><span data-ca>Al costat de Diagonal Mar</span></small></span><span class="arr">›</span>
-    </a>
-    <a class="btn" href="https://www.instagram.com/chloe_estilistes_/" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-      <span>Instagram<small>@chloe_estilistes_</small></span><span class="arr">›</span>
-    </a>
-  </nav>
+<nav>
+<a class="btn" href="tel:+34936035515">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 7 7L16 14l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"></path></svg>
+<span>Llamar al salón<small>936 03 55 15</small></span><span class="arr">›</span>
+</a>
+<a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Chloe%20Estilistas&amp;destination_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+<span>Cómo llegar<small>Junto a Diagonal Mar</small></span><span class="arr">›</span>
+</a>
+<a class="btn" href="https://www.instagram.com/chloe_estilistes_/" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1"></circle></svg>
+<span>Instagram<small>@chloe_estilistes_</small></span><span class="arr">›</span>
+</a>
+<a class="btn" data-es="" href="/ficha/">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><rect height="18" rx="3" width="16" x="4" y="3"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>
+<span>¿Primera vez? Hazte la ficha<small>Un minuto y ya te conocemos</small></span><span class="arr">›</span>
+</a>
 
-  <section class="reveal">
-    <h2><span data-es>Nuestro trabajo</span><span data-ca>La nostra feina</span></h2>
-    <div class="rail">
-      <figure><img src="img/mechas-antes-despues.webp" alt="Antes y después de unas mechas" loading="lazy" width="900" height="897" style="aspect-ratio:1/1"><figcaption><span data-es>Antes y después</span><span data-ca>Abans i després</span></figcaption></figure>
-      <figure><img src="img/balayage-rubio-ondas.webp" alt="Balayage rubio con ondas" loading="lazy" width="800" height="1066"><figcaption>Balayage</figcaption></figure>
-      <figure><img src="img/mechas-balayage.webp" alt="Mechas balayage" loading="lazy" width="700" height="1244"><figcaption><span data-es>Mechas</span><span data-ca>Metxes</span></figcaption></figure>
-    </div>
-    <p class="hint"><span data-es>Desliza →</span><span data-ca>Llisca →</span></p>
-  </section>
-
-  <section class="reveal">
-    <h2><span data-es>El salón</span><span data-ca>El saló</span></h2>
-    <div class="rail">
-      <figure><img src="img/tocadores-salon.webp?v=2" alt="Tocadores del salón" loading="lazy" width="800" height="1060"></figure>
-      <figure><img src="img/zona-corte.webp" alt="Zona de corte con madera y espejos" loading="lazy" width="800" height="1060"></figure>
-      <figure><img src="img/lavacabezas.webp" alt="Lavacabezas" loading="lazy" width="800" height="1066"></figure>
-      <figure><img src="img/puestos-trabajo.webp" alt="Puestos de trabajo" loading="lazy" width="800" height="1066"></figure>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <h2><span data-es>Lo que dicen</span><span data-ca>El que diuen</span></h2>
-    <div class="reviews">
-      <blockquote><span class="stars">★★★★★</span>«Sin duda, esta peluquería es la mejor de todo el barrio y se gana también su lugar entre las mejores de Barcelona.»<cite>Martina R. · Google</cite></blockquote>
-      <blockquote><span class="stars">★★★★★</span>«Sempre surto molt contenta de la perruqueria: amb el color, la tallada de cabell i...amb el tracte!!»<cite>Chelo B. · Google</cite></blockquote>
-      <blockquote><span class="stars">★★★★★</span>«Calidad precio es maravilloso, son simpáticas, amables, atentas y hacen su trabajo 10!»<cite>Diana E. · Google</cite></blockquote>
-    </div>
-    <a class="more" href="https://www.google.com/maps/search/?api=1&query=Chloe%20Estilistas&query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" target="_blank" rel="noopener"><span data-es>Ver las 230 reseñas en Google →</span><span data-ca>Veure les 230 ressenyes a Google →</span></a>
-  </section>
-
-  <section class="reveal">
-    <h2><span data-es>Servicios</span><span data-ca>Serveis</span></h2>
-    <ul class="services">
-      <li>Color</li>
-      <li><span data-es>Mechas</span><span data-ca>Metxes</span></li>
-      <li>Balayage</li>
-      <li><span data-es>Corte y peinado</span><span data-ca>Tall i pentinat</span></li>
-      <li><span data-es>Alisado de queratina</span><span data-ca>Allisat de queratina</span></li>
-      <li><span data-es>Tratamientos capilares</span><span data-ca>Tractaments capil·lars</span></li>
-      <li><span data-es>Recogidos</span><span data-ca>Recollits</span></li>
-      <li><span data-es>Mujer y hombre</span><span data-ca>Dona i home</span></li>
-    </ul>
-  </section>
-
-  <section class="reveal">
-    <h2><span data-es>Horario</span><span data-ca>Horari</span></h2>
-    <div class="card">
-      <table class="hours" id="hours">
-        <tr data-d="1"><td><span data-es>Lunes</span><span data-ca>Dilluns</span></td><td><span data-es>Cerrado</span><span data-ca>Tancat</span></td></tr>
-        <tr data-d="2"><td><span data-es>Martes</span><span data-ca>Dimarts</span></td><td>9:30–13:00 · 15:00–19:00</td></tr>
-        <tr data-d="3"><td><span data-es>Miércoles</span><span data-ca>Dimecres</span></td><td>9:30–13:00 · 15:00–19:00</td></tr>
-        <tr data-d="4"><td><span data-es>Jueves</span><span data-ca>Dijous</span></td><td>9:30–13:00 · 15:00–19:00</td></tr>
-        <tr data-d="5"><td><span data-es>Viernes</span><span data-ca>Divendres</span></td><td>9:30–19:30</td></tr>
-        <tr data-d="6"><td><span data-es>Sábado</span><span data-ca>Dissabte</span></td><td>8:30–14:00</td></tr>
-        <tr data-d="0"><td><span data-es>Domingo</span><span data-ca>Diumenge</span></td><td><span data-es>Cerrado</span><span data-ca>Tancat</span></td></tr>
-      </table>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <h2><span data-es>El equipo</span><span data-ca>L'equip</span></h2>
-    <div class="card">
-      <p class="team"><b>Jesi</b> <span data-es>y</span><span data-ca>i</span> <b>Nuri</b> — <span data-es>te escuchamos, te asesoramos y cuidamos tu pelo como si fuera el nuestro.</span><span data-ca>t'escoltem, t'assessorem i cuidem el teu cabell com si fos el nostre.</span></p>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <a class="btn" href="https://g.page/r/CQgu784OPx2iEBM/review" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg>
-      <span><span data-es>¿Ya nos conoces? Déjanos tu reseña</span><span data-ca>Ja ens coneixes? Deixa'ns la teva ressenya</span><small><span data-es>Nos ayuda muchísimo</span><span data-ca>Ens ajuda moltíssim</span></small></span><span class="arr">›</span>
-    </a>
-  </section>
-
-  <footer>
+</nav>
+<section class="reveal">
+<h2>Nuestro trabajo</h2>
+<div class="rail">
+<figure><img alt="Antes y después de unas mechas" height="897" loading="lazy" src="/img/mechas-antes-despues.webp" style="aspect-ratio:1/1" width="900"/><figcaption>Antes y después</figcaption></figure>
+<figure><img alt="Balayage rubio con ondas" height="1066" loading="lazy" src="/img/balayage-rubio-ondas.webp" width="800"/><figcaption>Balayage</figcaption></figure>
+<figure><img alt="Mechas balayage" height="1244" loading="lazy" src="/img/mechas-balayage.webp" width="700"/><figcaption>Mechas</figcaption></figure>
+</div>
+<p class="hint">Desliza →</p>
+</section>
+<section class="reveal">
+<h2>El salón</h2>
+<div class="rail">
+<figure><img alt="Tocadores del salón" height="1060" loading="lazy" src="/img/tocadores-salon.webp?v=2" width="800"/></figure>
+<figure><img alt="Zona de corte con madera y espejos" height="1060" loading="lazy" src="/img/zona-corte.webp" width="800"/></figure>
+<figure><img alt="Lavacabezas" height="1066" loading="lazy" src="/img/lavacabezas.webp" width="800"/></figure>
+<figure><img alt="Puestos de trabajo" height="1066" loading="lazy" src="/img/puestos-trabajo.webp" width="800"/></figure>
+</div>
+</section>
+<section class="reveal">
+<h2>Lo que dicen</h2>
+<div class="reviews">
+<blockquote><span class="stars">★★★★★</span>«Sin duda, esta peluquería es la mejor de todo el barrio y se gana también su lugar entre las mejores de Barcelona.»<cite>Martina R. · Google</cite></blockquote>
+<blockquote><span class="stars">★★★★★</span>«Sempre surto molt contenta de la perruqueria: amb el color, la tallada de cabell i...amb el tracte!!»<cite>Chelo B. · Google</cite></blockquote>
+<blockquote><span class="stars">★★★★★</span>«Calidad precio es maravilloso, son simpáticas, amables, atentas y hacen su trabajo 10!»<cite>Diana E. · Google</cite></blockquote>
+</div>
+<a class="more" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">Ver las 230 reseñas en Google →</a>
+</section>
+<section class="reveal" id="servicios">
+<h2>Servicios</h2>
+<div class="svc">
+<article><h3>Mechas</h3><p>Luz y dimensión adaptadas a tu tono, de las más naturales a las más rubias.</p><div class="acts"><a class="pill gold" data-es="" href="/mechas/">Ver más</a><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20mechas." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Balayage</h3><p>Degradado a mano alzada, suave y fácil de mantener entre visitas.</p><div class="acts"><a class="pill gold" data-es="" href="/balayage/">Ver más</a><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20balayage." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Color</h3><p>Tinte, cobertura de canas y cambios de tono con diagnóstico previo.</p><div class="acts"><a class="pill gold" data-es="" href="/tinte-color/">Ver más</a><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20tinte." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Alisado de queratina</h3><p>Menos encrespado y un pelo más fácil de peinar durante semanas.</p><div class="acts"><a class="pill gold" data-es="" href="/alisado-keratina/">Ver más</a><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20alisado%20de%20queratina." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Corte y peinado</h3><p>Corte a tu medida y siempre sales peinada: nadie se va con el pelo mojado.</p><div class="acts"><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20corte%20y%20peinado." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Tratamientos capilares</h3><p>Hidratación y reparación para pelo seco, teñido o castigado.</p><div class="acts"><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20tratamiento%20capilar." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>Recogidos</h3><p>Para bodas, comuniones y eventos. Pide cita con antelación.</p><div class="acts"><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20recogido." rel="noopener" target="_blank">Pedir cita</a></div></article>
+<article><h3>También para hombre</h3><p>Corte y color para caballero (no somos barbería).</p><div class="acts"><a class="pill wa" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20un%20corte%20de%20caballero." rel="noopener" target="_blank">Pedir cita</a></div></article>
+</div>
+</section>
+<section class="reveal" id="tarjeta-regalo">
+<h2>Tarjeta regalo</h2>
+<div class="gift">
+<div aria-hidden="true" class="giftcard"><img alt="" height="526" loading="lazy" src="/img/logo-chloe-estilistes.webp" width="900"/><span>Tarjeta regalo</span></div>
+<h3>Regala Chloe Estilistes</h3>
+<p>El regalo que siempre acierta: un servicio en el salón. Pídela por WhatsApp, te la preparamos y la recoges en el salón.</p>
+<div class="acts"><a class="pill gold" data-es="" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo." rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><rect height="13" rx="2" width="18" x="3" y="8"></rect><path d="M3 12h18M12 8v13M12 8S10.5 3 8 4s0 4 4 4m0 0s1.5-5 4-4 0 4-4 4"></path></svg> Pedir tarjeta regalo</a></div>
+</div>
+</section>
+<section class="reveal">
+<h2>Horario</h2>
+<div class="card">
+<table class="hours" id="hours">
+<tr data-d="1"><td>Lunes</td><td>Cerrado</td></tr>
+<tr data-d="2"><td>Martes</td><td>9:30–13:00 · 15:00–19:00</td></tr>
+<tr data-d="3"><td>Miércoles</td><td>9:30–13:00 · 15:00–19:00</td></tr>
+<tr data-d="4"><td>Jueves</td><td>9:30–13:00 · 15:00–19:00</td></tr>
+<tr data-d="5"><td>Viernes</td><td>9:30–19:30</td></tr>
+<tr data-d="6"><td>Sábado</td><td>8:30–14:00</td></tr>
+<tr data-d="0"><td>Domingo</td><td>Cerrado</td></tr>
+</table>
+</div>
+</section>
+<section class="reveal" id="preguntas">
+<h2>Preguntas frecuentes</h2>
+<div class="card faq">
+<details><summary>¿Cómo pido cita?</summary><p>Escríbenos por WhatsApp al 610 27 36 09 o llámanos al 936 03 55 15. Dinos qué servicio quieres y qué día y franja te va mejor, y te confirmamos la hora.</p></details>
+<details><summary>¿Me podéis decir el precio?</summary><p>Depende del largo y de la cantidad de pelo, así que preferimos verlo contigo. Pregúntanos por WhatsApp y te orientamos.</p></details>
+<details><summary>¿Cuánto dura un balayage?</summary><p>Entre tres y cuatro horas, según el largo y el resultado que buscas. Por eso es importante decirnos el servicio al pedir cita: así te reservamos el tiempo que necesitas.</p></details>
+<details><summary>¿Atendéis a hombres?</summary><p>Sí, hacemos corte y color para caballero. No somos barbería.</p></details>
+<details><summary>¿Habláis catalán?</summary><p>Sí, te atendemos en castellano y en catalán, en el salón y por WhatsApp.</p></details>
+<details><summary>¿Tenéis tarjetas regalo?</summary><p>Sí. Pídenosla por WhatsApp y te la preparamos para que la recojas en el salón.</p></details>
+<details><summary>¿Dónde aparco?</summary><p>Estamos en la Rambla de Prim, 45 bis (Sant Martí), junto a Diagonal Mar. En la zona hay aparcamiento regulado (zona verde).</p></details>
+<details><summary>¿Tenéis otros salones?</summary><p>No. Chloe Estilistes es un único salón, en la Rambla de Prim de Barcelona. No tenemos relación con otras peluquerías de nombre parecido.</p></details>
+</div>
+</section>
+<section class="reveal" id="donde">
+<h2>Dónde estamos</h2>
+<div class="map" id="map">
+<button id="mapBtn" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><b>Ver el mapa</b><small>Al pulsar se carga Google Maps, que puede usar sus propias cookies.</small></button>
+</div>
+<p class="hint">Rambla de Prim, 45 bis · 08019 Barcelona · <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Chloe%20Estilistas&amp;destination_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">Cómo llegar →</a></p>
+</section>
+<section class="reveal">
+<h2>El equipo</h2>
+<div class="card">
+<p class="team"><b>Jesi</b> y <b>Nuri</b> — te escuchamos, te asesoramos y cuidamos tu pelo como si fuera el nuestro.</p>
+</div>
+</section>
+<section class="reveal">
+<a class="btn" href="https://g.page/r/CQgu784OPx2iEBM/review" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"></path></svg>
+<span>¿Ya nos conoces? Déjanos tu reseña<small>Nos ayuda muchísimo</small></span><span class="arr">›</span>
+</a>
+</section>
+<footer>
     © <span id="y">2026</span> Chloe Estilistes · Rambla de Prim, 45 bis · 08019 Barcelona
     <details class="legal" id="privacidad">
-      <summary><span data-es>Aviso legal y privacidad</span><span data-ca>Avís legal i privacitat</span></summary>
-      <div data-es>
-        <p><b>Aviso legal.</b> Titular: Jesica Mulet Ordóñez (Chloe Estilistes) · NIF 41003155C<br>
-        Domicilio: Rambla de Prim, 45 bis, 08019 Barcelona<br>
-        Email: <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a> · Tel.: 936 03 55 15<br>
+<summary>Aviso legal y privacidad</summary>
+<div data-es="">
+<p><b>Aviso legal.</b> Titular: Jesica Mulet Ordóñez (Chloe Estilistes) · NIF 41003155C<br/>
+        Domicilio: Rambla de Prim, 45 bis, 08019 Barcelona<br/>
+        Email: <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a> · Tel.: 936 03 55 15<br/>
         Actividad: peluquería.</p>
-        <p><b>Protección de datos.</b> La responsable del tratamiento es Jesica Mulet Ordóñez, con los datos de contacto de arriba. Tratamos los datos que nos das en tu ficha, por WhatsApp, por teléfono o por email (nombre, apellidos, teléfono, email, fecha de nacimiento si nos la das, tus citas y las notas del servicio) para:</p>
-        <p>· Gestionar tus citas y enviarte recordatorios y avisos sobre ellas. Base legal: el servicio que nos pides.<br>
-        · Felicitarte por tu cumpleaños, solo si nos has dado tu fecha de nacimiento y lo has aceptado. Base legal: tu consentimiento, que puedes retirar cuando quieras.<br>
-        · Enviarte promociones y novedades del salón por WhatsApp, solo si lo has aceptado. Base legal: tu consentimiento. Puedes darte de baja cuando quieras respondiendo «BAJA».<br>
+<p><b>Protección de datos.</b> La responsable del tratamiento es Jesica Mulet Ordóñez, con los datos de contacto de arriba. Tratamos los datos que nos das en tu ficha, por WhatsApp, por teléfono o por email (nombre, apellidos, teléfono, email, fecha de nacimiento si nos la das, tus citas y las notas del servicio) para:</p>
+<p>· Gestionar tus citas y enviarte recordatorios y avisos sobre ellas. Base legal: el servicio que nos pides.<br/>
+        · Felicitarte por tu cumpleaños, solo si nos has dado tu fecha de nacimiento y lo has aceptado. Base legal: tu consentimiento, que puedes retirar cuando quieras.<br/>
+        · Enviarte promociones y novedades del salón por WhatsApp, solo si lo has aceptado. Base legal: tu consentimiento. Puedes darte de baja cuando quieras respondiendo «BAJA».<br/>
         · Pedirte tu opinión después de una visita. Base legal: nuestro interés legítimo en mejorar el servicio. Puedes oponerte respondiendo «BAJA» al mensaje.</p>
-        <p>Conservamos tus datos mientras seas clienta y hasta 3 años después de tu última visita, salvo que antes nos pidas borrarlos, y los datos de facturación durante los plazos que exige la ley. No cedemos tus datos a nadie. Usamos como proveedores a Google (agenda y correo), WhatsApp/Meta y Dualhook (mensajería) y GitHub y Cloudflare (alojamiento de esta web). Algunos pueden tratar datos fuera de la Unión Europea con las garantías previstas en el RGPD (cláusulas contractuales tipo o Marco de Privacidad de Datos UE-EE. UU.).</p>
-        <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a>. Si crees que no hemos tratado bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>).</p>
-        <p><b>Cookies.</b> Esta web no usa cookies. Solo guarda en tu navegador el idioma que eliges, y usa Cloudflare Web Analytics para contar visitas de forma anónima, sin cookies y sin identificarte.</p>
-      </div>
-      <div data-ca>
-        <p><b>Avís legal.</b> Titular: Jesica Mulet Ordóñez (Chloe Estilistes) · NIF 41003155C<br>
-        Domicili: Rambla de Prim, 45 bis, 08019 Barcelona<br>
-        Correu: <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a> · Tel.: 936 03 55 15<br>
-        Activitat: perruqueria.</p>
-        <p><b>Protecció de dades.</b> La responsable del tractament és Jesica Mulet Ordóñez, amb les dades de contacte de dalt. Tractem les dades que ens dones a la teva fitxa, per WhatsApp, per telèfon o per correu (nom, cognoms, telèfon, correu, data de naixement si ens la dones, les teves cites i les notes del servei) per:</p>
-        <p>· Gestionar les teves cites i enviar-te recordatoris i avisos sobre elles. Base legal: el servei que ens demanes.<br>
-        · Felicitar-te pel teu aniversari, només si ens has donat la data de naixement i ho has acceptat. Base legal: el teu consentiment, que pots retirar quan vulguis.<br>
-        · Enviar-te promocions i novetats del saló per WhatsApp, només si ho has acceptat. Base legal: el teu consentiment. Et pots donar de baixa quan vulguis responent «BAIXA».<br>
-        · Demanar-te la teva opinió després d'una visita. Base legal: el nostre interès legítim a millorar el servei. T'hi pots oposar responent «BAIXA» al missatge.</p>
-        <p>Conservem les teves dades mentre siguis clienta i fins a 3 anys després de la teva última visita, llevat que abans ens demanis esborrar-les, i les dades de facturació durant els terminis que exigeix la llei. No cedim les teves dades a ningú. Fem servir com a proveïdors Google (agenda i correu), WhatsApp/Meta i Dualhook (missatgeria) i GitHub i Cloudflare (allotjament d'aquest web). Alguns poden tractar dades fora de la Unió Europea amb les garanties previstes al RGPD (clàusules contractuals tipus o Marc de Privadesa de Dades UE-EUA).</p>
-        <p>Pots exercir els teus drets d'accés, rectificació, supressió, oposició, limitació del tractament i portabilitat escrivint a <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a>. Si creus que no hem tractat bé les teves dades, pots reclamar davant l'Agència Espanyola de Protecció de Dades (<a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>).</p>
-        <p><b>Galetes.</b> Aquest web no fa servir galetes. Només desa al navegador l'idioma que tries, i fa servir Cloudflare Web Analytics per comptar visites de manera anònima, sense galetes i sense identificar-te.</p>
-      </div>
-    </details>
-  </footer>
-</main>
-
-<div class="sticky">
-  <a id="wa" href="https://wa.me/34610273609" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
-    <span data-es>Pedir cita por WhatsApp</span><span data-ca>Demanar cita per WhatsApp</span>
-  </a>
+<p>Conservamos tus datos mientras seas clienta y hasta 3 años después de tu última visita, salvo que antes nos pidas borrarlos, y los datos de facturación durante los plazos que exige la ley. No cedemos tus datos a nadie. Usamos como proveedores a Google (agenda y correo), WhatsApp/Meta y Dualhook (mensajería) y GitHub y Cloudflare (alojamiento de esta web). Algunos pueden tratar datos fuera de la Unión Europea con las garantías previstas en el RGPD (cláusulas contractuales tipo o Marco de Privacidad de Datos UE-EE. UU.).</p>
+<p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a <a href="mailto:chloeestilistes@gmail.com">chloeestilistes@gmail.com</a>. Si crees que no hemos tratado bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" rel="noopener" target="_blank">aepd.es</a>).</p>
+<p><b>Cookies.</b> Esta web no usa cookies. Solo guarda en tu navegador el idioma que eliges, y usa Cloudflare Web Analytics para contar visitas de forma anónima, sin cookies y sin identificarte. El mapa de Google solo se carga si pulsas «Ver el mapa»; en ese caso Google puede usar sus propias cookies.</p>
 </div>
 
+</details>
+</footer>
+</main>
+<div class="sticky">
+<a href="https://wa.me/34610273609" id="wa" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"></path></svg>
+Pedir cita por WhatsApp
+</a>
+</div>
 <script>
 (function(){ if(location.hash==="#privacidad"){var d=document.getElementById("privacidad"); if(d){d.open=true; setTimeout(function(){d.scrollIntoView();},300);}} })();
 (function(){
-  var root=document.documentElement, btns=document.querySelectorAll('.lang button');
-  function setLang(l){
-    root.lang=l;
-    btns.forEach(function(b){b.setAttribute('aria-pressed', String(b.dataset.lang===l));});
-    var deMaps = false;
-    try { deMaps = /utm_source=google/.test(location.search) || sessionStorage.getItem('origen')==='maps'; if (deMaps) sessionStorage.setItem('origen','maps'); } catch(e) { deMaps = /utm_source=google/.test(location.search); }
-    var msg = deMaps
-      ? (l==='ca' ? 'Hola! Us he trobat a Google Maps i voldria demanar cita.' : '¡Hola! Os he encontrado en Google Maps y me gustaría pedir cita.')
-      : (l==='ca' ? 'Hola! He vist la vostra web i voldria demanar cita.' : '¡Hola! He visto vuestra web y me gustaría pedir cita.');
-    document.getElementById('wa').href='https://wa.me/34610273609?text='+encodeURIComponent(msg);
-    try{localStorage.setItem('lang',l);}catch(e){}
-    renderStatus();
-  }
-  btns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang);});});
+  var root=document.documentElement, L=root.lang==='ca'?'ca':'es';
+  document.querySelectorAll('.lang a').forEach(function(a){
+    a.setAttribute('aria-current', String(a.dataset.l===L));
+    a.addEventListener('click',function(){try{localStorage.setItem('lang',a.dataset.l);}catch(e){}});
+  });
+  var deMaps=false;
+  try { deMaps=/utm_source=google/.test(location.search)||sessionStorage.getItem('origen')==='maps'; if(deMaps) sessionStorage.setItem('origen','maps'); } catch(e){ deMaps=/utm_source=google/.test(location.search); }
+  var msg = deMaps
+    ? (L==='ca' ? 'Hola! Us he trobat a Google Maps i voldria demanar cita.' : '¡Hola! Os he encontrado en Google Maps y me gustaría pedir cita.')
+    : (L==='ca' ? 'Hola! He vist la vostra web i voldria demanar cita.' : '¡Hola! He visto vuestra web y me gustaría pedir cita.');
+  var wa=document.getElementById('wa'); if(wa && !wa.dataset.fijo) wa.href='https://wa.me/34610273609?text='+encodeURIComponent(msg);
 
   var H={2:[[570,780],[900,1140]],3:[[570,780],[900,1140]],4:[[570,780],[900,1140]],5:[[570,1170]],6:[[510,840]]};
   function madridNow(){
@@ -431,7 +562,8 @@
   }
   function fmt(m){return Math.floor(m/60)+':'+String(m%60).padStart(2,'0');}
   function renderStatus(){
-    var n=madridNow(), ca=root.lang==='ca', chip=document.getElementById('status'), t=document.getElementById('statusTxt');
+    var chip=document.getElementById('status'), t=document.getElementById('statusTxt'); if(!chip||!t) return;
+    var n=madridNow(), ca=L==='ca';
     document.querySelectorAll('#hours tr').forEach(function(tr){tr.classList.toggle('today', +tr.dataset.d===n.d);});
     var today=H[n.d]||[], cur=today.find(function(s){return n.m>=s[0]&&n.m<s[1];});
     chip.classList.toggle('closed', !cur);
@@ -441,10 +573,14 @@
     var names=ca?['diumenge','dilluns','dimarts','dimecres','dijous','divendres','dissabte']:['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
     for(var i=1;i<=7;i++){var d=(n.d+i)%7; if(H[d]){t.textContent=(ca?'Tancat · obre ':'Cerrado · abre el ')+names[d]+(ca?' a les ':' a las ')+fmt(H[d][0][0]);return;}}
   }
-  document.getElementById('y').textContent=new Date().getFullYear();
-  var saved=null; try{saved=localStorage.getItem('lang');}catch(e){}
-  setLang(saved==='ca'?'ca':'es');
-  setInterval(renderStatus,60000);
+  var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();
+  renderStatus(); setInterval(renderStatus,60000);
+
+  var mb=document.getElementById('mapBtn');
+  if(mb) mb.addEventListener('click',function(){
+    var f=document.createElement('iframe'); f.src='https://www.google.com/maps?q=Chloe+Estilistes,+Rambla+de+Prim+45+bis,+08019+Barcelona&output=embed'; f.loading='lazy'; f.title='Mapa · Chloe Estilistes'; f.referrerPolicy='no-referrer-when-downgrade';
+    var m=document.getElementById('map'); m.innerHTML=''; m.appendChild(f);
+  });
 
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
@@ -452,6 +588,6 @@
   } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9c226755350e460abe941cb62e3389d6"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics --><script data-cf-beacon='{"token": "9c226755350e460abe941cb62e3389d6"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
