@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#121110">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda Chloe">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/agenda/manifest.json">
+<link rel="apple-touch-icon" href="/agenda/apple-touch-icon.png">
+<link rel="icon" href="/agenda/icon-192.png">
+<title>Agenda · Chloe Estilistes</title>
+<link rel="preload" href="/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Josefin Sans";font-weight:300 600;font-display:swap;src:url(/fonts/josefin-sans.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{display:flex;align-items:center;justify-content:center;padding:24px 16px;color:#ece9e4;font-family:"Josefin Sans",system-ui,sans-serif;font-weight:300;background:#121110;
+ background-image:radial-gradient(circle at 50% 50%,#090807 0 2px,transparent 3px),radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.03) 0 38%,transparent 62%),linear-gradient(45deg,transparent 49.2%,rgba(0,0,0,.55) 50%,transparent 50.8%),linear-gradient(-45deg,transparent 49.2%,rgba(0,0,0,.55) 50%,transparent 50.8%);
+ background-size:56px 56px;background-position:0 0,28px 28px,0 0,0 0}
+.box{width:100%;max-width:360px;text-align:center}
+.box img{width:220px;max-width:70%;height:auto;margin:0 auto 10px;display:block}
+.sub{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96a;margin-bottom:26px}
+.card{background:rgba(22,20,18,.86);border:1px solid rgba(236,233,228,.14);border-radius:18px;padding:22px 18px;text-align:left}
+label{display:block;font-size:14px;margin-bottom:8px}
+input[type=password]{width:100%;font:inherit;font-size:22px;letter-spacing:.35em;text-align:center;color:#ece9e4;background:rgba(0,0,0,.35);border:1px solid rgba(236,233,228,.16);border-radius:12px;padding:14px;outline:none}
+input[type=password]:focus{border-color:#c9a96a}
+.rem{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:14px;color:#b4ada3;cursor:pointer}
+.rem input{width:18px;height:18px;accent-color:#c9a96a}
+button{display:block;width:100%;margin-top:18px;font:inherit;font-weight:600;font-size:17px;color:#121110;background:#c9a96a;border:0;border-radius:14px;padding:15px;cursor:pointer}
+button[disabled]{opacity:.6}
+.err{margin-top:12px;font-size:14px;color:#e3a08f;min-height:1em;text-align:center}
+.load{font-size:15px;color:#b4ada3;letter-spacing:.06em}
+.spin{width:34px;height:34px;margin:0 auto 14px;border:3px solid rgba(201,169,106,.25);border-top-color:#c9a96a;border-radius:50%;animation:g 1s linear infinite}
+@keyframes g{to{transform:rotate(360deg)}}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="/img/logo-chloe-estilistes.webp" alt="Chloe Estilistes" width="900" height="526">
+  <p class="sub">Agenda</p>
+  <div id="cargando"><div class="spin"></div><p class="load" id="cargandoTxt">Abriendo la agenda…</p></div>
+  <form class="card hide" id="login" autocomplete="off">
+    <label for="pin">PIN de la agenda</label>
+    <input type="password" id="pin" inputmode="numeric" autocomplete="current-password" required>
+    <label class="rem"><input type="checkbox" id="rem" checked> Recordar este dispositivo durante 30 días</label>
+    <button type="submit" id="entrar">Entrar</button>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+</div>
+<script>
+(function(){
+  var API = 'https://script.google.com/macros/s/AKfycbxeF5o1ippMjGZ7X9eDPUOoW5Ld-0TdCs9Q5g8FLwoXcM0P3fwfs11513D_woN167gXLA/exec';
+  var KEY = 'chloeAgendaSessionV2';
+  function call(accion, body){
+    return fetch(API + '?accion=' + accion, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body || {})})
+      .then(function(r){ if(!r.ok) throw new Error('Error de conexión (' + r.status + ')'); return r.json(); });
+  }
+  function getTok(){ try{ return localStorage.getItem(KEY) || sessionStorage.getItem(KEY) || ''; }catch(e){ return ''; } }
+  function setTok(t, recordar){ try{ if(recordar) localStorage.setItem(KEY, t); else { sessionStorage.setItem(KEY, t); localStorage.removeItem(KEY); } }catch(e){} }
+  function delTok(){ try{ localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); }catch(e){} }
+  function deviceId(){ try{ var d = localStorage.getItem('chloeAgendaDeviceId'); if(!/^[a-f0-9]{32}$/.test(d||'')){ var a = new Uint8Array(16); crypto.getRandomValues(a); d = Array.prototype.map.call(a, function(b){ return ('0'+b.toString(16)).slice(-2); }).join(''); localStorage.setItem('chloeAgendaDeviceId', d); } return d; }catch(e){ return ''; } }
+  function el(id){ return document.getElementById(id); }
+  function verLogin(msg){ el('cargando').className = 'hide'; el('login').className = 'card'; el('err').textContent = msg || ''; setTimeout(function(){ try{ el('pin').focus(); }catch(e){} }, 50); }
+  function verCargando(t){ el('login').className = 'card hide'; el('cargando').className = ''; el('cargandoTxt').textContent = t || 'Abriendo la agenda…'; }
+
+  /* Sustituto de google.script.run: la agenda llama al servidor igual que antes, pero por internet desde nuestra web */
+  function shim(API, KEY){
+    var PUB = {publicRegisterClient:1, publicGetAppointmentInfo:1, publicConfirmAppointment:1, publicDeclineAppointment:1};
+    function post(accion, body){
+      return fetch(API + '?accion=' + accion, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body)})
+        .then(function(r){ if(!r.ok) throw new Error('Error de conexión con el servidor (' + r.status + ')'); return r.json(); })
+        .then(function(r){ if(!r || !r.ok){ var m = (r && r.error) || 'Error del servidor'; if(/AUTH_REQUIRED/.test(m)){ try{ localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); }catch(e){} } throw new Error(m); } return r.result; });
+    }
+    function runner(ok, ko){
+      return new Proxy({}, {get: function(_, name){
+        if(name === 'withSuccessHandler') return function(f){ return runner(f, ko); };
+        if(name === 'withFailureHandler') return function(f){ return runner(ok, f); };
+        if(name === 'withUserObject') return function(){ return runner(ok, ko); };
+        return function(){
+          var args = Array.prototype.slice.call(arguments), pr;
+          if(name === 'agendaRpc'){
+            var metodo = args[1];
+            pr = post('rpc', {token: args[0], method: metodo, args: args[2] || []}).then(function(res){
+              if(metodo === 'logout'){ try{ localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); }catch(e){} return {url: '/agenda/'}; }
+              return res;
+            });
+          } else if(PUB[name]) {
+            pr = post('pub', {method: name, args: args});
+          } else {
+            pr = Promise.reject(new Error('Acción no disponible: ' + String(name)));
+          }
+          pr.then(function(v){ if(ok) ok(v); }, function(e){ if(ko) ko(e); else console.error(e); });
+        };
+      }});
+    }
+    window.google = window.google || {};
+    window.google.script = {run: runner(null, null), host: {close: function(){}}};
+  }
+
+  var HEAD = '<link rel="manifest" href="/agenda/manifest.json"><link rel="apple-touch-icon" href="/agenda/apple-touch-icon.png"><link rel="icon" href="/agenda/icon-192.png">' +
+    '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Agenda Chloe"><meta name="theme-color" content="#121110"><meta name="robots" content="noindex, nofollow">' +
+    '<script>(' + shim.toString() + ')(' + JSON.stringify(API) + ',' + JSON.stringify(KEY) + ');<\/script>';
+
+  function abrir(token){
+    verCargando();
+    var vista = (location.hash || '').replace('#','');
+    call('app', {token: token, view: vista}).then(function(r){
+      if(!r.ok){ if(/AUTH_REQUIRED/.test(r.error || '')){ delTok(); return verLogin(''); } throw new Error(r.error || 'No se pudo abrir la agenda'); }
+      var html = r.html, i = html.search(/<head[^>]*>/i);
+      html = i >= 0 ? html.replace(/<head[^>]*>/i, function(m){ return m + HEAD; }) : HEAD + html;
+      document.open(); document.write(html); document.close();
+    }).catch(function(e){
+      verLogin('No se pudo abrir la agenda: ' + (e && e.message ? e.message : e) + '. Revisa la conexión y vuelve a intentarlo.');
+    });
+  }
+
+  el('login').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var pin = el('pin').value.trim(), rec = el('rem').checked;
+    if(!pin) return;
+    el('entrar').disabled = true; el('err').textContent = '';
+    call('login', {pin: pin, remember: rec, deviceId: deviceId()}).then(function(r){
+      el('entrar').disabled = false;
+      if(!r.ok){ el('pin').value = ''; return verLogin(r.error || 'PIN incorrecto'); }
+      setTok(r.token, rec); abrir(r.token);
+    }).catch(function(){ el('entrar').disabled = false; verLogin('No se pudo conectar. Inténtalo de nuevo.'); });
+  });
+
+  var t = getTok();
+  if(t) abrir(t); else verLogin('');
+})();
+</script>
+</body>
+</html>

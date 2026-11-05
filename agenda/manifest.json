@@ -1,0 +1,15 @@
+{
+  "name": "Agenda Chloe Estilistes",
+  "short_name": "Agenda Chloe",
+  "start_url": "/agenda/",
+  "scope": "/agenda/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#121110",
+  "theme_color": "#121110",
+  "lang": "es",
+  "icons": [
+    { "src": "/agenda/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/agenda/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
