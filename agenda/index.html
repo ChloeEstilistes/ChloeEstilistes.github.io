@@ -106,6 +106,35 @@ button[disabled]{opacity:.6}
     if(OFFLINE_DESDE){ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ aviso(true); }); else aviso(true); }
     window.addEventListener('offline', function(){ aviso(true); });
 
+    /* (05/11/2026) Aviso de version nueva: cada 15 min (y al volver a la app) se mira si ha cambiado
+       la pantalla de la agenda o la web; si ha cambiado, sale un boton para actualizar (nunca se recarga sola). */
+    var verBase = null, webBase = null, ultimaMirada = 0;
+    function huella(t){ var h = 5381; for(var i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) | 0; return String(h); }
+    function avisoVersion(){
+      if(document.getElementById('avisoVersion') || !document.body) return;
+      var b = document.createElement('button'); b.id = 'avisoVersion'; b.type = 'button';
+      b.textContent = '✨ Hay una versión nueva de la agenda · Toca para actualizar';
+      b.style.cssText = 'position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:2147483646;background:#121110;color:#c9a96a;border:1px solid #c9a96a;font:600 15px/1.3 system-ui,-apple-system,sans-serif;padding:12px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.3);max-width:calc(100% - 24px);cursor:pointer';
+      b.onclick = function(){ b.textContent = 'Actualizando…'; location.reload(); };
+      document.body.appendChild(b);
+    }
+    function mirarVersion(){
+      if(OFFLINE_DESDE || (navigator.onLine === false)) return;
+      var ahora = Date.now(); if(ahora - ultimaMirada < 120000) return; ultimaMirada = ahora;
+      fetch(API + '?accion=ver', {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:'{}'})
+        .then(function(r){ return r.json(); }).then(function(j){
+          if(!j || !j.ok || !j.v) return;
+          if(verBase === null) verBase = j.v; else if(j.v !== verBase) avisoVersion();
+        }).catch(function(){});
+      fetch('/agenda/', {cache:'no-store'}).then(function(r){ return r.ok ? r.text() : null; }).then(function(t){
+        if(!t) return; var h = huella(t);
+        if(webBase === null) webBase = h; else if(h !== webBase) avisoVersion();
+      }).catch(function(){});
+    }
+    setTimeout(mirarVersion, 5000);
+    setInterval(function(){ ultimaMirada = 0; mirarVersion(); }, 15*60*1000);
+    document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible') mirarVersion(); });
+
     function post(accion, body){
       return fetch(API + '?accion=' + accion, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body)})
         .then(function(r){ if(!r.ok){ var er = new Error('Error de conexión con el servidor (' + r.status + ')'); er.sinRed = r.status >= 500; throw er; } return r.json(); },
