@@ -81,7 +81,7 @@ button[disabled]{opacity:.6}
 
   /* Sustituto de google.script.run: la agenda llama al servidor igual que antes, pero por internet desde nuestra web.
      (05/11/2026) Sin internet: las consultas (get…) devuelven lo ultimo guardado en este aparato y sale un aviso;
-     los cambios (guardar, cobrar, borrar…) no se hacen y se avisa de que no se ha guardado. */
+     los cambios fallan como siempre: las citas y cobros siguen en la cola de la agenda y se reintentan solos hasta guardarse. */
   function shim(API, KEY, DATOS, OFFLINE_DESDE){
     var PUB = {publicRegisterClient:1, publicGetAppointmentInfo:1, publicConfirmAppointment:1, publicDeclineAppointment:1};
     function esConsulta(m){ return /^get/.test(m) && m !== 'getPublicConfirmLink'; }
@@ -101,7 +101,7 @@ button[disabled]{opacity:.6}
       if(!b){ b = document.createElement('div'); b.id = 'avisoSinRed'; b.setAttribute('role','status');
         b.style.cssText = 'position:fixed;left:50%;top:max(8px,env(safe-area-inset-top));transform:translateX(-50%);z-index:2147483647;background:#b4492f;color:#fff;font:600 14px/1.3 system-ui,-apple-system,sans-serif;padding:9px 16px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);max-width:calc(100% - 24px);text-align:center;pointer-events:none';
         document.body.appendChild(b); }
-      b.textContent = '⚠ Sin conexión · ' + (ultimaCopia ? 'datos guardados del ' + hora(ultimaCopia) + ' · ' : '') + 'solo consulta, no se guardan cambios';
+      b.textContent = '⚠ Sin conexión · ' + (ultimaCopia ? 'datos guardados del ' + hora(ultimaCopia) + ' · ' : '') + 'las citas se enviarán al volver internet';
     }
     if(OFFLINE_DESDE){ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ aviso(true); }); else aviso(true); }
     window.addEventListener('offline', function(){ aviso(true); });
@@ -138,7 +138,7 @@ button[disabled]{opacity:.6}
     function post(accion, body){
       return fetch(API + '?accion=' + accion, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body)})
         .then(function(r){ if(!r.ok){ var er = new Error('Error de conexión con el servidor (' + r.status + ')'); er.sinRed = r.status >= 500; throw er; } return r.json(); },
-              function(){ var er = new Error('Sin conexión a internet: no se ha guardado nada. Vuelve a intentarlo cuando vuelva la conexión.'); er.sinRed = true; throw er; })
+              function(){ var er = new Error('Error de conexión con el servidor (sin internet)'); er.sinRed = true; throw er; })
         .then(function(r){ if(!r || !r.ok){ var m = (r && r.error) || 'Error del servidor'; if(/AUTH_REQUIRED/.test(m)) borrarTodo(); throw new Error(m); } return r.result; });
     }
     function runner(ok, ko){
@@ -157,7 +157,7 @@ button[disabled]{opacity:.6}
               return res;
             }, function(err){
               if(!err || !err.sinRed) throw err;
-              if(!esConsulta(metodo)){ aviso(true); throw new Error('Sin conexión a internet: no se ha guardado. Vuelve a intentarlo cuando vuelva la conexión.'); }
+              if(!esConsulta(metodo)){ aviso(true); throw new Error('Error de conexión con el servidor (sin internet)'); }
               return leer(claveRpc(metodo, margs)).then(function(c){
                 aviso(true, c && c.t);
                 if(c) return c.v;
