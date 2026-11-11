@@ -192,7 +192,7 @@
   <p class="crumbs"><a href="/">Inicio</a> › Productos</p>
   <h1>Productos para tu pelo</h1>
   <p class="sub">Rambla de Prim, 45 bis · Sant Martí, junto a Diagonal Mar</p>
-  <div class="intro"><p>Los mismos productos profesionales que usamos en el salón, para que cuides tu pelo en casa. Resérvalo por WhatsApp y lo recoges cuando vengas.</p></div>
+  <div class="intro"><p>Los mismos productos profesionales que usamos en el salón, para que cuides tu pelo en casa, y nuestras tarjetas regalo. Resérvalo por WhatsApp y lo recoges cuando vengas.</p></div>
   <div class="prods" id="prods"><p class="loading">Cargando productos…</p></div>
   <p class="note">Los precios incluyen IVA. Recogida en el salón en horario de apertura. Si no sabes cuál te va mejor, pregúntanos y te aconsejamos según tu pelo.</p>
   <footer>© <span id="y">2026</span> Chloe Estilistes · Rambla de Prim, 45 bis · 08019 Barcelona<br><a href="/#privacidad">Aviso legal y privacidad</a></footer>
@@ -227,7 +227,8 @@
     if (!ps.length) { box.innerHTML = '<p class="loading">Pronto tendremos aquí nuestros productos.</p>'; return; }
     box.innerHTML = ps.map(function(p){
       var ok = p.disponible === 'si';
-      var msg = '¡Hola! Me gustaría reservar ' + p.nombre + ' (' + eur(p.precio) + ') para recogerlo en el salón.';
+      var regalo = /^TARJETA/.test(p.id);
+      var msg = regalo ? '¡Hola! Me gustaría una tarjeta regalo de ' + eur(p.precio) + '.' : '¡Hola! Me gustaría reservar ' + p.nombre + ' (' + eur(p.precio) + ') para recogerlo en el salón.';
       var foto = p.foto ? '<div class="ph"><img src="' + e(p.foto) + '" alt="' + e(p.nombre) + '" loading="lazy"></div>'
                         : '<div class="ph vacia"><img src="/img/logo-chloe-estilistes.webp" alt=""></div>';
       return '<article class="prod" id="' + e(p.id) + '">' + foto + '<div class="in">'
@@ -235,7 +236,7 @@
         + '<h3>' + e(p.nombre) + '</h3>'
         + '<span class="pr">' + eur(p.precio) + '</span>'
         + (ok ? '' : '<span class="ag">Agotado ahora · pregúntanos</span>')
-        + '<a class="pill wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">' + (ok ? 'Reservar' : 'Avisadme') + '</a>'
+        + '<a class="pill wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">' + (regalo ? 'Pedir tarjeta' : (ok ? 'Reservar' : 'Avisadme')) + '</a>'
         + '</div></article>';
     }).join('');
     var h = decodeURIComponent(location.hash.slice(1));
