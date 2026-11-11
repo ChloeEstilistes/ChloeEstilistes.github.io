@@ -243,6 +243,23 @@
         + '<a class="pill wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">' + (regalo ? 'Pedir tarjeta' : (ok ? 'Reservar' : 'Avisadme')) + '</a>'
         + '</div></article>';
     }).join('');
+    // Datos para Google (precio, disponibilidad y recogida en el salón de cada producto)
+    try {
+      var ld = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Productos de peluquería · Chloe Estilistes',
+        itemListElement: ps.map(function(p, i){
+          var prod = { '@type': 'Product', name: p.nombre, url: 'https://chloeestilistes.com/productos/#' + p.id, sku: p.id,
+            brand: { '@type': 'Brand', name: p.marca || 'Chloe Estilistes' },
+            offers: { '@type': 'Offer', price: Number(p.precio).toFixed(2), priceCurrency: 'EUR', itemCondition: 'https://schema.org/NewCondition',
+              availability: p.disponible === 'si' ? 'https://schema.org/InStoreOnly' : 'https://schema.org/OutOfStock',
+              url: 'https://chloeestilistes.com/productos/#' + p.id,
+              seller: { '@type': 'HairSalon', name: 'Chloe Estilistes', '@id': 'https://chloeestilistes.com/#salon' } } };
+          if (p.foto) prod.image = p.foto;
+          if (p.descripcion) prod.description = p.descripcion;
+          if (/^\d{8,14}$/.test(p.gtin || '')) prod.gtin = p.gtin;
+          return { '@type': 'ListItem', position: i + 1, item: prod };
+        }) };
+      var sc = document.createElement('script'); sc.type = 'application/ld+json'; sc.textContent = JSON.stringify(ld); document.head.appendChild(sc);
+    } catch (err) {}
     var h = decodeURIComponent(location.hash.slice(1));
     var sel = h && document.getElementById(h);
     if (sel) { sel.classList.add('sel'); setTimeout(function(){ sel.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200); }
