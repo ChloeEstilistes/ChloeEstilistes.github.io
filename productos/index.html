@@ -184,6 +184,55 @@
   .note{margin-top:14px; font-size:14px; color:var(--muted); line-height:1.55}
   .loading{grid-column:1/-1; text-align:center; color:var(--muted); padding:30px 0}
   @media (min-width:700px){.prods{grid-template-columns:repeat(3,1fr)} .top, .wrap{max-width:760px}}
+
+  /* movimiento en las tarjetas */
+  .prod{cursor:pointer; opacity:0; transform:translateY(18px) scale(.98); transition:opacity .55s var(--ease), transform .55s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)}
+  .prod.in-view{opacity:1; transform:none}
+  .prod .ph{overflow:hidden}
+  .prod .ph img{transition:transform .6s var(--ease)}
+  .prod:active{transform:scale(.97)}
+  @media (hover:hover){.prod:hover{border-color:var(--gold-soft); box-shadow:0 14px 34px rgba(0,0,0,.45)} .prod:hover .ph img{transform:scale(1.06)}}
+  .prod .ds{-webkit-line-clamp:2}
+  .prod .mas{font-size:12px; color:var(--gold); letter-spacing:.06em}
+
+  /* ficha ampliada */
+  .ficha{position:fixed; inset:0; z-index:20; display:flex; align-items:flex-end; justify-content:center; pointer-events:none}
+  .ficha .velo{position:absolute; inset:0; background:rgba(8,7,6,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; transition:opacity .35s var(--ease)}
+  .ficha .hoja{position:relative; width:100%; max-width:560px; max-height:92vh; overflow-y:auto; overscroll-behavior:contain; background:#171513; border:1px solid var(--line); border-bottom:0; border-radius:22px 22px 0 0; transform:translateY(100%); transition:transform .45s var(--ease); padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+  .ficha.abierta{pointer-events:auto}
+  .ficha.abierta .velo{opacity:1}
+  .ficha.abierta .hoja{transform:none}
+  .ficha .asa{width:44px; height:5px; border-radius:3px; background:rgba(236,233,228,.25); margin:10px auto 0}
+  .ficha .cerrar{position:absolute; top:12px; right:12px; z-index:2; width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:rgba(18,17,16,.75); color:var(--silver); font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center}
+  .ficha .volver{display:inline-flex; align-items:center; gap:6px; margin:10px 16px 0; background:none; border:0; color:var(--muted); font:inherit; font-size:14px; cursor:pointer; padding:6px 0}
+  .ficha .foto{margin:10px 16px 0; border-radius:16px; overflow:hidden; background:#f4f1ec; aspect-ratio:1; display:flex; align-items:center; justify-content:center}
+  .ficha .foto img{width:100%; height:100%; object-fit:contain; transform:scale(.92); opacity:0; transition:transform .6s var(--ease) .08s, opacity .45s var(--ease) .08s}
+  .ficha.abierta .foto img{transform:none; opacity:1}
+  .ficha .foto.vacia{background:radial-gradient(circle at 50% 50%, #0b0a09 0 2px, transparent 3px) 0 0/22px 22px, #161412}
+  .ficha .foto.vacia img{width:58%; height:auto}
+  .ficha .txt{padding:16px 18px 0; opacity:0; transform:translateY(10px); transition:opacity .45s var(--ease) .18s, transform .45s var(--ease) .18s}
+  .ficha.abierta .txt{opacity:1; transform:none}
+  .ficha .mk{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold)}
+  .ficha h3{font-size:22px; font-weight:400; line-height:1.25; margin-top:4px}
+  .ficha .pr{font-size:24px; font-weight:600; margin-top:8px}
+  .ficha .ag{font-size:13px; color:#e3a08f; margin-top:2px}
+  .ficha .ds{margin-top:12px; font-size:15px; line-height:1.6; color:var(--muted); white-space:pre-line}
+  .ficha .rec{margin-top:12px; font-size:13px; color:var(--muted)}
+  .ficha .acc{display:grid; gap:8px; margin-top:16px}
+  .ficha .acc a, .ficha .acc button{display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; border-radius:14px; font:inherit; font-size:16px; font-weight:600; text-decoration:none; cursor:pointer}
+  .ficha .acc .res{background:var(--wa); color:#08190f; border:0}
+  .ficha .acc .otr{background:transparent; color:var(--silver); border:1px solid var(--line); font-weight:400}
+  @media (min-width:700px){
+    .ficha{align-items:center}
+    .ficha .hoja{border-radius:22px; border-bottom:1px solid var(--line); transform:translateY(30px) scale(.96); opacity:0; transition:transform .45s var(--ease), opacity .35s var(--ease); max-width:760px; display:grid; grid-template-columns:1fr 1fr; align-items:start; padding-bottom:18px}
+    .ficha.abierta .hoja{transform:none; opacity:1}
+    .ficha .asa{display:none}
+    .ficha .volver{grid-column:1/-1}
+    .ficha .foto{margin:10px 0 0 16px}
+    .ficha .txt{padding-top:10px}
+  }
+  body.bloq{overflow:hidden}
+  @media (prefers-reduced-motion:reduce){.prod,.ficha .hoja,.ficha .velo,.ficha .foto img,.ficha .txt{transition:none} .prod{opacity:1; transform:none}}
 </style>
 </head>
 <body>
@@ -199,6 +248,27 @@
   <p class="note">Los precios incluyen IVA. Recogida en el salón en horario de apertura. Si no sabes cuál te va mejor, pregúntanos y te aconsejamos según tu pelo.</p>
   <footer>© <span id="y">2026</span> Chloe Estilistes · Rambla de Prim, 45 bis · 08019 Barcelona<br><a href="/#privacidad">Aviso legal y privacidad</a></footer>
 </main>
+<div class="ficha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="fNom" aria-hidden="true">
+  <div class="velo" data-cerrar></div>
+  <div class="hoja" id="hoja">
+    <div class="asa" aria-hidden="true"></div>
+    <button class="cerrar" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <button class="volver" type="button" data-cerrar>‹ Volver a productos</button>
+    <div class="foto" id="fFoto"><img id="fImg" alt=""></div>
+    <div class="txt">
+      <span class="mk" id="fMarca"></span>
+      <h3 id="fNom"></h3>
+      <div class="pr" id="fPr"></div>
+      <div class="ag" id="fAg"></div>
+      <p class="ds" id="fDs"></p>
+      <p class="rec">Recógelo en el salón · Rambla de Prim, 45 bis</p>
+      <div class="acc">
+        <a class="res" id="fRes" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+        <button class="otr" type="button" data-cerrar>Seguir viendo productos</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="sticky">
   <a id="wa" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Quiero%20preguntar%20por%20un%20producto." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg> Preguntar por WhatsApp</a>
 </div>
@@ -227,22 +297,89 @@
     var ps = csv(t).filter(function(p){ return p.id; });
     var box = document.getElementById('prods');
     if (!ps.length) { box.innerHTML = '<p class="loading">Pronto tendremos aquí nuestros productos.</p>'; return; }
+    var datos = {};
     box.innerHTML = ps.map(function(p){
       var ok = p.disponible === 'si';
       var regalo = /^TARJETA/.test(p.id);
-      var ds = regalo ? '' : String(p.descripcion || '').replace(/\s*Recógelo en Chloe Estilistes.*$/, '').replace(/^.*Producto profesional de peluquería\.$/, '');
+      var ds = String(p.descripcion || '').replace(/\s*(Recógel[oa]|Pídela por WhatsApp).*$/, '').replace(/^.*Producto profesional de peluquería\.$/, '');
+      if (regalo) ds = 'Tarjeta regalo para cualquier servicio de Chloe Estilistes. Pídela por WhatsApp, te la preparamos y la recoges en el salón.';
       var msg = regalo ? '¡Hola! Me gustaría una tarjeta regalo de ' + eur(p.precio) + '.' : '¡Hola! Me gustaría reservar ' + p.nombre + ' (' + eur(p.precio) + ') para recogerlo en el salón.';
+      var link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+      var boton = regalo ? 'Pedir tarjeta' : (ok ? 'Reservar' : 'Avisadme');
+      datos[p.id] = { p: p, ok: ok, ds: ds, link: link, boton: boton, regalo: regalo };
       var foto = p.foto ? '<div class="ph"><img src="' + e(p.foto) + '" alt="' + e(p.nombre) + '" loading="lazy"></div>'
                         : '<div class="ph vacia"><img src="/img/logo-chloe-estilistes.webp" alt=""></div>';
-      return '<article class="prod" id="' + e(p.id) + '">' + foto + '<div class="in">'
+      return '<article class="prod" id="' + e(p.id) + '" data-id="' + e(p.id) + '" tabindex="0" role="button" aria-label="Ver ' + e(p.nombre) + '">' + foto + '<div class="in">'
         + (p.marca ? '<span class="mk">' + e(p.marca) + '</span>' : '')
         + '<h3>' + e(p.nombre) + '</h3>'
-        + (ds ? '<p class="ds" onclick="this.classList.toggle(\'open\')">' + e(ds) + '</p>' : '')
+        + (ds && !regalo ? '<p class="ds">' + e(ds) + '</p><span class="mas">Ver más ›</span>' : '')
         + '<span class="pr">' + eur(p.precio) + '</span>'
         + (ok ? '' : '<span class="ag">Agotado ahora · pregúntanos</span>')
-        + '<a class="pill wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">' + (regalo ? 'Pedir tarjeta' : (ok ? 'Reservar' : 'Avisadme')) + '</a>'
+        + '<a class="pill wa" href="' + link + '" target="_blank" rel="noopener">' + boton + '</a>'
         + '</div></article>';
     }).join('');
+
+    // Entrada escalonada de las tarjetas
+    var cards = [].slice.call(box.querySelectorAll('.prod'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting) { var i = cards.indexOf(en.target); en.target.style.transitionDelay = (i % 3) * 70 + 'ms'; en.target.classList.add('in-view'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -30px 0px' });
+      cards.forEach(function(c){ io.observe(c); });
+    } else cards.forEach(function(c){ c.classList.add('in-view'); });
+
+    // Ficha ampliada: se abre al pulsar un producto; se vuelve con la X, "Volver", tocando fuera, deslizando hacia abajo, Esc o el botón atrás del móvil
+    var ficha = document.getElementById('ficha'), hoja = document.getElementById('hoja'), abierta = null, desdeEnlace = false, origen = null;
+    function abrir(id, empuja){
+      var d = datos[id]; if (!d) return;
+      var p = d.p;
+      var f = document.getElementById('fFoto'), img = document.getElementById('fImg');
+      f.className = 'foto' + (p.foto ? '' : ' vacia');
+      img.src = p.foto || '/img/logo-chloe-estilistes.webp'; img.alt = p.foto ? p.nombre : '';
+      document.getElementById('fMarca').textContent = p.marca || '';
+      document.getElementById('fNom').textContent = p.nombre;
+      document.getElementById('fPr').textContent = eur(p.precio);
+      document.getElementById('fAg').textContent = d.ok ? '' : 'Agotado ahora · pregúntanos y te avisamos';
+      document.getElementById('fDs').textContent = d.ds;
+      var r = document.getElementById('fRes'); r.href = d.link; r.textContent = d.regalo ? 'Pedir tarjeta por WhatsApp' : (d.ok ? 'Reservar por WhatsApp' : 'Avisadme cuando llegue');
+      hoja.scrollTop = 0; hoja.style.transform = '';
+      origen = document.activeElement;
+      abierta = id;
+      if (empuja) history.pushState({ ficha: id }, '', '#' + encodeURIComponent(id));
+      ficha.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('bloq');
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ ficha.classList.add('abierta'); ficha.querySelector('.cerrar').focus({ preventScroll: true }); }); });
+    }
+    function ocultar(){
+      if (!abierta) return;
+      var id = abierta; abierta = null;
+      ficha.classList.remove('abierta'); ficha.setAttribute('aria-hidden', 'true'); hoja.style.transform = '';
+      document.body.classList.remove('bloq');
+      var c = document.getElementById(id);
+      if (c) { c.classList.add('sel'); setTimeout(function(){ c.classList.remove('sel'); }, 1400); }
+      if (origen && origen.focus) origen.focus({ preventScroll: true });
+    }
+    function cerrar(){
+      if (!abierta) return;
+      if (desdeEnlace) { desdeEnlace = false; history.replaceState(null, '', location.pathname); ocultar(); }
+      else history.back();
+    }
+    window.addEventListener('popstate', function(ev){
+      var id = ev.state && ev.state.ficha;
+      if (id && datos[id]) abrir(id, false); else ocultar();
+    });
+    box.addEventListener('click', function(ev){
+      if (ev.target.closest('a')) return;
+      var c = ev.target.closest('.prod'); if (c) abrir(c.getAttribute('data-id'), true);
+    });
+    box.addEventListener('keydown', function(ev){
+      if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList.contains('prod')) { ev.preventDefault(); abrir(ev.target.getAttribute('data-id'), true); }
+    });
+    [].forEach.call(ficha.querySelectorAll('[data-cerrar]'), function(b){ b.addEventListener('click', cerrar); });
+    document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') cerrar(); });
+    // Deslizar hacia abajo para cerrar (móvil)
+    var y0 = null, dy = 0;
+    hoja.addEventListener('touchstart', function(ev){ y0 = hoja.scrollTop <= 0 ? ev.touches[0].clientY : null; dy = 0; }, { passive: true });
+    hoja.addEventListener('touchmove', function(ev){ if (y0 === null) return; dy = Math.max(0, ev.touches[0].clientY - y0); if (dy > 0) { hoja.style.transition = 'none'; hoja.style.transform = 'translateY(' + dy + 'px)'; } }, { passive: true });
+    hoja.addEventListener('touchend', function(){ if (y0 === null) return; hoja.style.transition = ''; if (dy > 110) cerrar(); else hoja.style.transform = ''; y0 = null; });
     // Datos para Google (precio, disponibilidad y recogida en el salón de cada producto)
     try {
       var ld = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Productos de peluquería · Chloe Estilistes',
@@ -260,9 +397,14 @@
         }) };
       var sc = document.createElement('script'); sc.type = 'application/ld+json'; sc.textContent = JSON.stringify(ld); document.head.appendChild(sc);
     } catch (err) {}
+    // Si se llega con un enlace a un producto (p. ej. desde el catálogo de WhatsApp), se abre su ficha
     var h = decodeURIComponent(location.hash.slice(1));
     var sel = h && document.getElementById(h);
-    if (sel) { sel.classList.add('sel'); setTimeout(function(){ sel.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200); }
+    if (sel && datos[h]) {
+      sel.scrollIntoView({ block: 'center' });
+      desdeEnlace = true; history.replaceState({ ficha: h }, '', location.href);
+      setTimeout(function(){ abrir(h, false); }, 250);
+    }
   }).catch(function(){
     document.getElementById('prods').innerHTML = '<p class="loading">No se han podido cargar los productos. Escríbenos por WhatsApp y te informamos.</p>';
   });
