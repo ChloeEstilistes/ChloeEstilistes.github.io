@@ -176,6 +176,8 @@
   .prod .in{padding:10px 12px 12px; display:flex; flex-direction:column; gap:4px; flex:1}
   .prod .mk{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold)}
   .prod h3{font-size:15px; font-weight:400; line-height:1.3}
+  .prod .ds{font-size:13px; color:var(--muted); line-height:1.45; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; cursor:pointer}
+  .prod .ds.open{-webkit-line-clamp:unset; display:block}
   .prod .pr{font-size:18px; font-weight:600; margin-top:auto; padding-top:6px}
   .prod .ag{font-size:12px; color:#e3a08f}
   .prod .pill{justify-content:center; margin-top:8px; font-size:13px; padding:8px 10px}
@@ -228,12 +230,14 @@
     box.innerHTML = ps.map(function(p){
       var ok = p.disponible === 'si';
       var regalo = /^TARJETA/.test(p.id);
+      var ds = regalo ? '' : String(p.descripcion || '').replace(/\s*Recógelo en Chloe Estilistes.*$/, '').replace(/^.*Producto profesional de peluquería\.$/, '');
       var msg = regalo ? '¡Hola! Me gustaría una tarjeta regalo de ' + eur(p.precio) + '.' : '¡Hola! Me gustaría reservar ' + p.nombre + ' (' + eur(p.precio) + ') para recogerlo en el salón.';
       var foto = p.foto ? '<div class="ph"><img src="' + e(p.foto) + '" alt="' + e(p.nombre) + '" loading="lazy"></div>'
                         : '<div class="ph vacia"><img src="/img/logo-chloe-estilistes.webp" alt=""></div>';
       return '<article class="prod" id="' + e(p.id) + '">' + foto + '<div class="in">'
         + (p.marca ? '<span class="mk">' + e(p.marca) + '</span>' : '')
         + '<h3>' + e(p.nombre) + '</h3>'
+        + (ds ? '<p class="ds" onclick="this.classList.toggle(\'open\')">' + e(ds) + '</p>' : '')
         + '<span class="pr">' + eur(p.precio) + '</span>'
         + (ok ? '' : '<span class="ag">Agotado ahora · pregúntanos</span>')
         + '<a class="pill wa" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">' + (regalo ? 'Pedir tarjeta' : (ok ? 'Reservar' : 'Avisadme')) + '</a>'
