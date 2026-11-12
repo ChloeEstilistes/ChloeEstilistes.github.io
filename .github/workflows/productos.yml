@@ -1,0 +1,40 @@
+name: Productos de la web
+
+# Regenera las páginas de productos desde la hoja de Google (pestaña "Web")
+on:
+  schedule:
+    - cron: '17 5 * * *'   # cada día de madrugada
+  workflow_dispatch:        # botón "Run workflow" para lanzarlo a mano
+  push:
+    paths:
+      - 'tools/productos.py'
+      - '.github/workflows/productos.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: productos
+  cancel-in-progress: false
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generar páginas de productos
+        run: python3 tools/productos.py
+      - name: Guardar cambios
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "Chloe Estilistes (automático)"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Productos: actualizar páginas desde la hoja"
+            git push
+          else
+            echo "Sin cambios"
+          fi
