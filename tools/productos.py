@@ -299,9 +299,9 @@ def main():
     if escribir('productos/index.html', h): cambiadas.add(WEB + '/productos/')
     # carrusel del inicio
     h = open(os.path.join(RAIZ, 'index.html'), encoding='utf-8').read()
-    rail = [p for p in ps if p.get('foto') and not p['regalo']][:8]
+    rail = [p for p in ps if p.get('foto')]  # todos, tarjetas regalo incluidas (fondos de la portada)
     h = entre(h, 'RAIL', ''.join(
-        f'<figure><a href="/productos/{p["slug"]}/"><div class="pi"><img src="{e(p["foto"])}" alt="{e(p["nombre"])}" loading="lazy"></div><figcaption>{e(p["nombre"])}<b>{p["eur"]}</b></figcaption></a></figure>'
+        f'<figure><a href="/productos/{p["slug"]}/"><div class="pi"><img src="{e(p["foto"])}" data-chloe-photo-source="{e(p["foto"])}" alt="{e(p["nombre"])}" loading="lazy" width="600" height="600"></div><figcaption>{e(p["nombre"])}<b>{p["eur"]}</b></figcaption></a></figure>'
         for p in rail))
     escribir('index.html', h)
     sitemap(ps, cambiadas)
