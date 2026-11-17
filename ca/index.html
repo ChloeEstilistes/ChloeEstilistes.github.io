@@ -380,6 +380,83 @@
  ]
 }
 </script>
+<style>.chloe-scene{position:relative!important;isolation:isolate;overflow:hidden!important;background-color:#e4dbcf!important;background-image:url('/img/fondo-productos.webp')!important;background-size:300% 300%!important;background-position:var(--scene-x) var(--scene-y)!important;aspect-ratio:1}
+.chloe-scene.chloe-dark{background-image:radial-gradient(ellipse at 50% 75%,#aa8449 0,#312923 35%,#151412 74%)!important;background-size:cover!important}
+.chloe-scene img.chloe-product{position:relative!important;inset:auto!important;display:block!important;width:80%!important;height:80%!important;max-width:80%!important;max-height:80%!important;margin:auto!important;object-fit:contain!important;aspect-ratio:auto!important;opacity:1!important;filter:drop-shadow(0 10px 8px #21170f40);animation:chloe-float 7s ease-in-out infinite;transform:none;z-index:1}
+.chloe-scene.chloe-gift img.chloe-product{width:84%!important;max-width:84%!important;height:84%!important;max-height:84%!important;animation-duration:8s}
+.chloe-scene::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(115deg,transparent 35%,#ffffff26 50%,transparent 65%);background-size:300% 100%;animation:chloe-shine 9s ease-in-out infinite;mix-blend-mode:soft-light}
+@keyframes chloe-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes chloe-shine{0%,25%{background-position:150% 0}75%,100%{background-position:-50% 0}}
+.chloe-nav{position:absolute;left:20px;right:20px;top:14px;z-index:8;max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 20px;border:1px solid #c9a96a55;border-radius:999px;background:#121110db;backdrop-filter:blur(12px)}
+.chloe-nav .chloe-brand img{width:106px;height:44px;object-fit:contain}
+.chloe-nav nav{display:flex;gap:24px;margin:0;font-size:14px;letter-spacing:.08em}
+.chloe-nav a{text-decoration:none}.chloe-nav nav a{color:#ece9e4}.chloe-nav nav a:hover{color:#c9a96a}
+.chloe-nav .chloe-book{border-radius:999px;padding:12px 20px;background:#25d366;color:#08190f;font-weight:600;white-space:nowrap}
+.chloe-home .hero{min-height:94vh}.chloe-home .hero-in{max-width:780px;padding-bottom:70px}
+.chloe-home .hero .lang{top:90px}.chloe-home .wrap{max-width:1100px;padding-inline:24px}
+.chloe-home section{margin-top:72px;scroll-margin-top:25px}.chloe-home h2{font-size:15px;letter-spacing:.3em;margin-bottom:26px}
+.chloe-home .svc{gap:22px}.chloe-home .svc article{border-radius:22px;padding:26px 24px;transition:transform .4s,border-color .4s}
+.chloe-home .svc article:hover{transform:translateY(-5px);border-color:#c9a96a88}
+.chloe-home .rail:not(.prail) figure{border-radius:160px 160px 18px 18px}
+.chloe-home .prail figure{max-width:240px;flex-basis:230px;border-radius:20px}
+.chloe-home .gift{padding:34px 24px;border-radius:26px}.chloe-home .giftcard{animation:chloe-gift-float 8s ease-in-out infinite}
+@keyframes chloe-gift-float{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-1deg) translateY(-6px)}}
+.chloe-marquee{border-block:1px solid #c9a96a44;background:#1a1816;overflow:hidden;padding:20px 0}
+.chloe-marquee-track{display:flex;width:max-content;animation:chloe-scroll 35s linear infinite}.chloe-marquee-track span{white-space:nowrap;text-transform:uppercase;letter-spacing:.22em;color:#c9a96a;margin-right:50px;font-size:14px}
+.chloe-marquee:hover .chloe-marquee-track{animation-play-state:paused}
+.chloe-home .reviews.chloe-reviews{display:block;overflow:hidden}.chloe-review-track{display:flex;gap:20px;width:max-content;animation:chloe-scroll 45s linear infinite}.chloe-review-track blockquote{flex:0 0 330px;width:330px;max-width:80vw;border-radius:20px}
+.chloe-reviews:hover .chloe-review-track,.chloe-reviews:focus-within .chloe-review-track,.chloe-paused .chloe-review-track{animation-play-state:paused}
+@keyframes chloe-scroll{to{transform:translateX(-50%)}}
+.chloe-pause{font:inherit;font-size:13px;color:#c9a96a;background:transparent;border:1px solid #c9a96a66;padding:7px 13px;border-radius:999px;margin-top:14px;cursor:pointer}
+.chloe-reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease var(--reveal-delay,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms)}.chloe-reveal.chloe-visible{opacity:1;transform:none}
+@media(min-width:800px){.chloe-home .svc{grid-template-columns:repeat(3,minmax(0,1fr))}.chloe-home .svc article:last-child:nth-child(3n+1){grid-column:auto}.chloe-home .rail:not(.prail){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;margin:0;padding:0;gap:22px}.chloe-home .rail:not(.prail) figure{max-width:none}.chloe-home .sticky a{max-width:520px}}
+@media(max-width:720px){.chloe-nav{left:12px;right:12px;padding:8px 14px;gap:8px}.chloe-nav nav{display:none}.chloe-nav .chloe-book{font-size:13px;padding:10px 15px}.chloe-home .wrap{padding-inline:16px}.chloe-home .hero-in{padding-bottom:42px}.chloe-home section{margin-top:46px}.chloe-home .svc article{padding:20px}.chloe-home .hero{min-height:90svh}}
+@media(prefers-reduced-motion:reduce){.chloe-scene img.chloe-product,.chloe-scene::after,.chloe-marquee-track,.chloe-review-track,.chloe-home .giftcard{animation:none!important}.chloe-reveal{opacity:1!important;transform:none!important;transition:none!important}.chloe-home .reviews.chloe-reviews{overflow:auto}}
+
+
+</style><style>.chloe-home .prail{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0;padding:0;overflow:visible}.chloe-home .prail figure{max-width:none;min-width:0}.prail h3{font-size:15px;font-weight:400}.prail figcaption{font-weight:400}.chloe-nav .chloe-brand img{height:44px!important}.chloe-home .hero{min-height:85vh}@media(max-width:650px){.chloe-home .prail{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
+<style>
+/* Movimiento de letras estilo Dolly Rouge */
+html,body{overflow-x:clip}
+.chloe-marquee{background:var(--gold)!important;border:0!important;transform:rotate(-2deg) scale(1.04);margin:26px 0 8px;padding:14px 0!important;box-shadow:0 12px 34px rgba(0,0,0,.5);position:relative;z-index:3}
+.chloe-marquee-track span{color:#121110!important;font-size:clamp(17px,2.6vw,26px)!important;font-weight:400;letter-spacing:.2em!important;margin-right:0!important;padding-right:1em}
+.chloe-marquee-track span:after{content:"✦";margin-left:1em;font-size:.6em;vertical-align:.25em}
+.ce-ticker{overflow:hidden;white-space:nowrap;transform:rotate(1.6deg) scale(1.04);border-block:1px solid var(--gold-soft);padding:14px 0;margin:44px -16px 6px;color:var(--gold)}
+.ce-ticker .t{display:inline-flex;animation:chloe-scroll 34s linear infinite reverse}
+.ce-ticker span{font-size:clamp(17px,2.6vw,26px);letter-spacing:.2em;text-transform:uppercase;padding-right:1em}
+.ce-ticker span:after{content:"✦";margin-left:1em;font-size:.6em;vertical-align:.25em}
+.ce-spin{position:absolute;left:max(24px,calc(50% - 520px));bottom:60px;width:118px;height:118px;z-index:4;color:var(--gold);animation:ce-rot 20s linear infinite;pointer-events:none}
+.ce-spin text{font-size:10.2px;letter-spacing:.2em;text-transform:uppercase;fill:currentColor}
+@keyframes ce-rot{to{transform:rotate(360deg)}}
+.tag{overflow:hidden}
+.tag i{display:inline-block;font-style:normal;white-space:pre;opacity:0;transform:translateY(110%);animation:ce-up .7s cubic-bezier(.23,1,.32,1) forwards;animation-delay:calc(.45s + var(--i)*30ms)}
+@keyframes ce-up{to{opacity:1;transform:none}}
+.logo{animation:ce-logo 1.2s cubic-bezier(.23,1,.32,1) both}
+@keyframes ce-logo{from{opacity:0;transform:translateY(18px) scale(.96);filter:blur(6px) drop-shadow(0 4px 18px rgba(0,0,0,.75))}}
+main h2 .w{display:inline-block;opacity:0;transform:translateY(70%) rotate(5deg);transition:opacity .6s ease,transform .75s cubic-bezier(.23,1,.32,1);transition-delay:calc(var(--i)*80ms)}
+main h2.ce-in .w{opacity:1;transform:none}
+.svc h3 .w{display:inline-block}
+.svc article.chloe-visible h3{animation:ce-tilt .9s cubic-bezier(.23,1,.32,1) both}
+@keyframes ce-tilt{from{transform:rotate(-3deg) translateY(10px);color:var(--gold)}}
+@media(max-width:720px){.ce-spin{width:72px;height:72px;left:14px;top:84px;bottom:auto}}
+@media(prefers-reduced-motion:reduce){.ce-ticker .t,.ce-spin,.logo,.tag i,.svc article h3{animation:none!important;opacity:1;transform:none}main h2 .w{opacity:1;transform:none;transition:none}}
+</style>
+<style>
+/* Nota de Google dentro de "Lo que dicen" */
+.ce-score{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:16px 18px;border-radius:16px;border:1px solid var(--gold-soft);background:linear-gradient(135deg,rgba(201,169,106,.14),rgba(18,17,16,.85));text-decoration:none}
+.ce-score b{font-size:40px;font-weight:300;line-height:1;color:var(--silver)}
+.ce-score .stars{display:block;color:var(--gold);letter-spacing:3px;font-size:16px}
+.ce-score small{display:block;font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
+.ce-score .arr{margin-left:auto;color:var(--gold);opacity:.7;font-size:20px}
+/* Servicios en color mocha mousse */
+.svc article{background:linear-gradient(160deg,#a47864 0%,#86604e 100%)!important;border-color:rgba(243,226,205,.28)!important;color:#fbf3ea;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.svc article h3{color:#fff8f0}
+.svc article p{color:rgba(251,243,234,.86)!important}
+.svc article .from{color:#f6dfb8!important}
+.svc article .pill{background:rgba(42,28,22,.35);border-color:rgba(251,243,234,.55);color:#fbf3ea}
+.svc article .pill.wa{border-color:#7be3a3;color:#d9ffe7;background:rgba(18,40,26,.45)}
+@media (hover:hover){.svc article:hover{border-color:#f6dfb8!important}}
+</style>
 </head>
 <body>
 <header class="hero">
@@ -390,9 +467,6 @@
 <p class="tag">Perruqueria · Barcelona</p>
 <p class="addr">Rambla de Prim, 45 bis · Sant Martí</p>
 <div class="chips">
-<a class="chip" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">
-<span class="stars">★★★★★</span> 4,9 · 230 ressenyes
-</a>
 <span aria-live="polite" class="chip" id="status"><span class="dot"></span><span id="statusTxt"></span></span>
 </div>
 </div>
@@ -421,12 +495,14 @@
 <h2>La nostra feina</h2>
 <div class="rail">
 <figure><img alt="Antes y después de unas mechas" height="897" loading="lazy" src="/img/mechas-antes-despues.webp" style="aspect-ratio:1/1" width="900"/><figcaption>Abans i després</figcaption></figure>
-<figure><img alt="Balayage en melena curta" height="1125" loading="lazy" src="/img/mechas-bob-perfil.webp" width="900"/><figcaption>Balayage</figcaption></figure>
-<figure><img alt="Balayage en castany amb ones" height="1125" loading="lazy" src="/img/balayage-castano-ondas.webp" width="900"/><figcaption>Balayage</figcaption></figure>
-<figure><img alt="Tint coure" height="1125" loading="lazy" src="/img/tinte-cobrizo.webp" width="900"/><figcaption>Color</figcaption></figure>
-<figure><img alt="Allisat de queratina" height="1125" loading="lazy" src="/img/alisado-keratina-liso.webp" width="900"/><figcaption>Allisat</figcaption></figure>
+<figure><img alt="Metxes mocha mousse en melena amb capes" height="1125" loading="lazy" src="/img/mechas-mocha-ondas.webp" width="900"/><figcaption>Metxes mocha mousse</figcaption></figure>
+<figure><img alt="Balayage en melena curta" height="1125" loading="lazy" src="/img/mechas-bob-perfil.webp?v=4" width="900"/><figcaption>Balayage</figcaption></figure>
+<figure><img alt="Balayage en castany amb ones" height="1125" loading="lazy" src="/img/balayage-castano-ondas.webp?v=4" width="900"/><figcaption>Balayage</figcaption></figure>
+<figure><img alt="Tint coure" height="1125" loading="lazy" src="/img/tinte-cobrizo.webp?v=4" width="900"/><figcaption>Color</figcaption></figure>
+<figure><img alt="Allisat de queratina" height="1125" loading="lazy" src="/img/alisado-keratina-liso.webp?v=4" width="900"/><figcaption>Allisat</figcaption></figure>
 <figure><img alt="Balayage rubio con ondas" height="1066" loading="lazy" src="/img/balayage-rubio-ondas.webp" width="800"/><figcaption>Balayage</figcaption></figure>
 <figure><img alt="Mechas balayage" height="1244" loading="lazy" src="/img/mechas-balayage.webp" width="700"/><figcaption>Metxes</figcaption></figure>
+<figure><img alt="Metxes mocha mousse de perfil" height="1125" loading="lazy" src="/img/mechas-mocha-perfil.webp" width="900"/><figcaption>Metxes mocha mousse</figcaption></figure>
 </div>
 <p class="hint">Llisca →</p>
 </section>
@@ -441,12 +517,13 @@
 </section>
 <section class="reveal">
 <h2>El que diuen</h2>
+<a class="ce-score" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank"><b>4,9</b><span><span class="stars">★★★★★</span><small>245 ressenyes a Google</small></span><span class="arr">›</span></a>
 <div class="reviews">
 <blockquote><span class="stars">★★★★★</span>«Sin duda, esta peluquería es la mejor de todo el barrio y se gana también su lugar entre las mejores de Barcelona.»<cite>Martina R. · Google</cite></blockquote>
 <blockquote><span class="stars">★★★★★</span>«Sempre surto molt contenta de la perruqueria: amb el color, la tallada de cabell i...amb el tracte!!»<cite>Chelo B. · Google</cite></blockquote>
 <blockquote><span class="stars">★★★★★</span>«Calidad precio es maravilloso, son simpáticas, amables, atentas y hacen su trabajo 10!»<cite>Diana E. · Google</cite></blockquote>
 </div>
-<a class="more" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">Veure les 230 ressenyes a Google →</a>
+<a class="more" href="https://www.google.com/maps/search/?api=1&amp;query=Chloe%20Estilistas&amp;query_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">Veure les 245 ressenyes a Google →</a>
 </section>
 <section class="reveal" id="servicios">
 <h2>Serveis</h2>
@@ -506,6 +583,7 @@
 <button id="mapBtn" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><b>Veure el mapa</b><small>En prémer es carrega Google Maps, que pot fer servir les seves pròpies galetes.</small></button>
 </div>
 <p class="hint">Rambla de Prim, 45 bis · 08019 Barcelona · <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Chloe%20Estilistas&amp;destination_place_id=ChIJ_zS4o1GjpBIRCC7vzg4_HaI" rel="noopener" target="_blank">Com arribar-hi →</a></p>
+<p class="hint">🚇 Metro L4 El Maresme-Fòrum, a uns 150-200 m a peu.</p>
 </section>
 <section class="reveal">
 <h2>L'equip</h2>
@@ -597,5 +675,145 @@ Demanar cita per WhatsApp
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script data-cf-beacon='{"token": "9c226755350e460abe941cb62e3389d6"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script><!-- End Cloudflare Web Analytics -->
+<script>/* Visual enhancement only: original catalogue, URLs and product photographs stay authoritative. */
+(() => {
+  'use strict';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const catalogue = {
+    'PRO-79F42940': {tile:8, box:[.14,.44,.955,.563]},
+    'PRO-4F5A2532': {tile:0, box:[.405,.10,.586,.877]},
+    'PRO-449C6E31': {tile:1, box:[.369,.193,.628,.768]},
+    'PRO-1B3D2B3E': {tile:2, box:[.133,.293,.879,.682]},
+    'PRO-268EB620': {tile:3, box:[.427,.215,.576,.769]},
+    'PRO-EAF9CFE4': {tile:4, box:[.37,.099,.608,.815]},
+    'PRO-E55CA78A': {tile:5, box:[.364,.21,.631,.778]},
+    'PRO-B44D486F': {tile:6, box:[.315,.12,.684,.855]},
+    'PRO-2BB234CE': {tile:7, box:[.433,.146,.565,.798]},
+    'PRO-6CCFBF19': {tile:8, box:[.264,.257,.738,.656]},
+    'PRO-4FE85595': {tile:4, box:[.433,.157,.583,.789]},
+    'PRO-4AC75C88': {tile:2, box:[.173,.248,.877,.741]}
+  };
+  const cache = new Map();
+  // Productos ya recortados en /img/productos-escena (fondo quitado con IA, sin tocar el color del producto).
+  async function cutout(src, item) {
+    if (cache.has(src)) return cache.get(src);
+    const promise = new Promise((resolve,reject) => {
+      const source = new Image();
+      source.crossOrigin = 'anonymous';
+      source.onload = () => {
+        try {
+          const w=source.naturalWidth, h=source.naturalHeight, b=item.box;
+          const x=Math.floor(b[0]*w), y=Math.floor(b[1]*h);
+          const cw=Math.ceil((b[2]-b[0])*w), ch=Math.ceil((b[3]-b[1])*h);
+          const c=document.createElement('canvas'); c.width=cw; c.height=ch;
+          const ctx=c.getContext('2d',{willReadFrequently:true});
+          ctx.drawImage(source,x,y,cw,ch,0,0,cw,ch);
+          const pixels=ctx.getImageData(0,0,cw,ch), d=pixels.data;
+          const seen=new Uint8Array(cw*ch), queue=new Int32Array(cw*ch);
+          let head=0,tail=0;
+          function add(i) {
+            if(i<0||i>=seen.length||seen[i]) return;
+            seen[i]=1;
+            const p=i*4, lo=Math.min(d[p],d[p+1],d[p+2]),hi=Math.max(d[p],d[p+1],d[p+2]);
+            if(lo>=246 && hi-lo<=12) queue[tail++]=i;
+          }
+          for(let i=0;i<cw;i++){add(i);add((ch-1)*cw+i);}
+          for(let j=0;j<ch;j++){add(j*cw);add(j*cw+cw-1);}
+          while(head<tail){
+            const i=queue[head++]; d[i*4+3]=0;
+            if(i%cw) add(i-1); if(i%cw<cw-1) add(i+1);add(i-cw);add(i+cw);
+          }
+          // Abort if an unusually pale source cannot be isolated safely.
+          if(tail>cw*ch*.8) {reject(new Error('Background isolation unavailable'));return;}
+          ctx.putImageData(pixels,0,0);
+          resolve(c.toDataURL('image/png'));
+        } catch(e) {reject(e);}
+      };
+      source.onerror=reject; source.src=src;
+    });
+    cache.set(src,promise); return promise;
+  }
+  function enhanceImage(img) {
+    const raw=img.getAttribute('src')||'';
+    if(!raw || img.dataset.chloeRendered==='true' || img.dataset.chloeWorking===raw) return;
+    const match=(img.dataset.chloePhotoSource||raw).match(/\/(PRO-[A-F0-9]+|TARJETA-REGALO-\d+)\.(?:jpg|png|webp)(?:\?|$)/i);
+    if(!match) return;
+    const id=match[1];
+    const item=catalogue[id] || (/^TARJETA/.test(id)?{tile:1,box:[.098,.223,.905,.771],gift:true}:{tile:2,box:[0,0,1,1]});
+    if(!item) return;
+    const frame=img.parentElement;
+    if(!frame || frame.tagName==='A') return;
+    img.dataset.chloeWorking=raw;
+    const src=new URL(raw,location.href);
+    if(src.hostname==='chloeestilistes.com') {src.protocol=location.protocol;src.host=location.host;}
+    new Promise((res,rej)=>{const t=new Image();t.onload=()=>res(t.src);t.onerror=rej;t.src='/img/productos-escena/'+id+'.webp?v=1';}).then(result=>{
+      if(img.getAttribute('src')!==raw) return;
+      frame.classList.add('chloe-scene');
+      frame.classList.toggle('chloe-dark',item.tile<0);
+      frame.classList.toggle('chloe-gift',!!item.gift);
+      frame.style.setProperty('--scene-x',(item.tile%3)*50+'%');
+      frame.style.setProperty('--scene-y',Math.floor(item.tile/3)*50+'%');
+      img.dataset.chloeOriginal=raw;
+      img.dataset.chloeRendered='true';
+      img.classList.add('chloe-product');
+      img.src=result;
+    }).catch(()=>{delete img.dataset.chloeWorking;});
+  }
+  let pending=false;
+  function refresh() {
+    if(pending) return; pending=true;
+    requestAnimationFrame(()=>{pending=false;document.querySelectorAll('img').forEach(enhanceImage);});
+  }
+  new MutationObserver(refresh).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['src']});
+  refresh();
+  const hero=document.querySelector('header.hero');
+  if(hero) {
+    document.body.classList.add('chloe-home');
+    const ca=document.documentElement.lang==='ca';
+    const nav=document.createElement('div'); nav.className='chloe-nav';
+    nav.innerHTML='<a class="chloe-brand" href="'+(ca?'/ca/':'/')+'"><img src="/img/logo-chloe-estilistes.webp" alt="Chloe Estilistes" width="900" height="526"></a><nav aria-label="'+(ca?'Navegació principal':'Navegación principal')+'"><a href="#servicios">'+(ca?'Serveis':'Servicios')+'</a><a href="/productos/">'+(ca?'Productes':'Productos')+'</a><a href="#tarjeta-regalo">'+(ca?'Targeta regal':'Tarjeta regalo')+'</a></nav><a class="chloe-book" href="https://wa.me/34610273609" target="_blank" rel="noopener">'+(ca?'Demanar cita':'Pedir cita')+'</a>';
+    document.body.insertBefore(nav,hero);
+    const services=document.querySelector('.svc');
+    if(services){
+      if(!services.closest('section').id)services.closest('section').id='servicios';
+      const band=document.createElement('div');band.className='chloe-marquee';band.setAttribute('aria-hidden','true');
+      const track=document.createElement('div');track.className='chloe-marquee-track';
+      const names=[...services.querySelectorAll('h3')].map(h=>h.textContent);
+      for(let n=0;n<2;n++) names.forEach(t=>{const s=document.createElement('span');s.textContent=t;track.append(s);});
+      band.append(track);hero.after(band);
+    }
+    document.querySelectorAll('.reviews').forEach(reviews=>{
+      if(reduced)return;
+      const items=[...reviews.children];if(items.length<2)return;
+      const track=document.createElement('div');track.className='chloe-review-track';
+      items.forEach(i=>track.append(i));
+      items.forEach(i=>{const clone=i.cloneNode(true);clone.setAttribute('aria-hidden','true');clone.inert=true;track.append(clone);});
+      reviews.append(track);reviews.classList.add('chloe-reviews');
+      const pause=document.createElement('button');pause.type='button';pause.className='chloe-pause';
+      pause.textContent=ca?'Pausar ressenyes':'Pausar reseñas';pause.setAttribute('aria-pressed','false');
+      pause.onclick=()=>{const paused=reviews.classList.toggle('chloe-paused');pause.setAttribute('aria-pressed',String(paused));pause.textContent=paused?(ca?'Reprendre ressenyes':'Reanudar reseñas'):(ca?'Pausar ressenyes':'Pausar reseñas');};
+      reviews.after(pause);
+    });
+  }
+  if(!reduced && 'IntersectionObserver' in window) {
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('chloe-visible');io.unobserve(e.target);}}),{threshold:.08});
+    document.querySelectorAll('section h2,.svc article,.gift,.faq details').forEach((el,i)=>{el.classList.add('chloe-reveal');el.style.setProperty('--reveal-delay',(i%3)*65+'ms');io.observe(el);});
+  }
+})();
+
+
+</script>
+<script>(function(){
+var red=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var hero=document.querySelector('header.hero');
+if(hero){hero.insertAdjacentHTML('beforeend','<svg aria-hidden="true" class="ce-spin" viewBox="0 0 100 100"><defs><path id="ceC" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#ceC">Chloe Estilistes · Perruqueria · Barcelona · </textPath></text><circle cx="50" cy="50" r="3" fill="currentColor"/></svg>');}
+var tg=document.querySelector('.tag');
+if(tg&&!red){var t=tg.textContent;tg.setAttribute('aria-label',t);tg.innerHTML='';Array.from(t).forEach(function(c,i){var e=document.createElement('i');e.setAttribute('aria-hidden','true');e.style.setProperty('--i',i);e.textContent=c;tg.appendChild(e);});}
+var rv=document.querySelector('.reviews');
+if(rv){var sec=rv.closest('section');var w=["Sempre surts pentinada", "Rambla de Prim", "Barcelona", "Color", "Talls"];var h='';for(var k=0;k<2;k++)w.forEach(function(x){h+='<span>'+x+'</span>';});sec.insertAdjacentHTML('beforebegin','<div aria-hidden="true" class="ce-ticker"><div class="t">'+h+'</div></div>');}
+var hs=document.querySelectorAll('main h2');
+hs.forEach(function(h){var t=h.textContent.trim();h.innerHTML=t.split(' ').map(function(x,i){return '<span class="w" style="--i:'+i+'">'+x+'</span>';}).join(' ');});
+if('IntersectionObserver' in window&&!red){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('ce-in');io.unobserve(e.target);}});},{threshold:.2});hs.forEach(function(h){io.observe(h);});}else hs.forEach(function(h){h.classList.add('ce-in');});
+})();</script>
 </body>
 </html>
