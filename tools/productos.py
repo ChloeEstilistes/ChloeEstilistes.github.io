@@ -44,7 +44,7 @@ def leer():
         p['ds'] = ds
         msg = (f"¡Hola! Me gustaría una tarjeta regalo de {p['eur']}." if p['regalo']
                else f"¡Hola! Me gustaría reservar {p['nombre']} ({p['eur']}) para recogerlo en el salón.")
-        p['wa'] = f'https://wa.me/{WA}?text=' + urllib.parse.quote(msg)
+        p['wa'] = f'https://wa.me/{WA}?text=' + urllib.parse.quote(msg + ' (Os escribo desde la web)')
         p['boton'] = 'Pedir tarjeta' if p['regalo'] else ('Reservar' if p['ok'] else 'Avisadme')
     return ps
 
@@ -154,7 +154,7 @@ def cabecera(titulo, desc, url, imagen, css, lds):
 
 PIE = '''  <footer>© 2026 Chloe Estilistes · Rambla de Prim, 45 bis · 08019 Barcelona<br><a href="/#privacidad">Aviso legal y privacidad</a></footer>
 </main>
-<div class="sticky"><a href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Quiero%20preguntar%20por%20un%20producto." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.7-.1 1.2z"/></svg>Pregúntanos por WhatsApp</a></div>
+<div class="sticky"><a href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Quiero%20preguntar%20por%20un%20producto.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.7-.1 1.2z"/></svg>Pregúntanos por WhatsApp</a></div>
 </body>
 </html>
 '''

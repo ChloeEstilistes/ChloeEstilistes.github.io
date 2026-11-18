@@ -65,7 +65,7 @@ input[type=time]{color-scheme:dark}
     <label class="f"><span>Correu electrònic</span><input type="email" id="qe" autocomplete="email" autocapitalize="none" placeholder="correu@exemple.com"></label>
     <label class="f"><span>Data de naixement</span><input type="tel" id="qb" inputmode="numeric" maxlength="10" placeholder="DD / MM / AAAA"><small>Opcional. Només la fem servir per felicitar-te per l'aniversari, si ho acceptes al WhatsApp de benvinguda que t'enviarem.</small></label>
     <label class="f"><span>Àlies o nota</span><input type="text" id="qo" placeholder="Alguna cosa que ens ajudi a atendre't millor"></label>
-    <label class="f"><span>Com ens has conegut?</span><select id="qk" required><option value="">Tria una opció</option><option value="Google Maps">Google Maps</option><option value="Instagram">Instagram</option><option value="Web">Aquest web</option><option value="Recomendación">Me'l van recomanar</option><option value="Pasaba por delante">Passava per davant</option><option value="Otro">Altres</option></select></label>
+    <label class="f"><span>Com ens has conegut?</span><select id="qk" required><option value="">Tria una opció</option><option value="Google Maps">Google Maps</option><option value="Instagram">Instagram</option><option value="Web">Web</option><option value="Recomendación">Recomanació</option><option value="Pasaba por delante">Passava per davant</option><option value="Otro">Altres</option></select></label>
     <label class="hp" aria-hidden="true">Web<input type="text" id="qw" tabindex="-1" autocomplete="off"></label>
     <div class="f"><span>Tens cita reservada?</span>
       <div class="row"><button type="button" class="opt" id="qSi">Sí, ja tinc cita</button><button type="button" class="opt" id="qNo">Encara no</button></div>
@@ -86,7 +86,7 @@ input[type=time]{color-scheme:dark}
   function hoy(){var d=new Date();return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();}
   function mask(i){var d=String(i.value||'').replace(/\D/g,'').slice(0,8);i.value=d.length>4?d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4):(d.length>2?d.slice(0,2)+'/'+d.slice(2):d);}
   function cap(i){i.value=String(i.value||'').toLowerCase().replace(/(^|[\s'\-])([a-záéíóúüñçàèòïl·])/g,function(m,s,l){return s+l.toUpperCase();});}
-  function fechaCitaOk(v){var m=String(v||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);if(!m)return false;var d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getDate()!=+m[1]||d.getMonth()!=+m[2]-1)return false;var h=new Date();h.setHours(0,0,0,0);var lim=new Date(h);lim.setDate(lim.getDate()+120);return d>=h&&d<=lim;}
+  function fechaCitaOk(v){var m=String(v||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);if(!m)return false;var d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return false;var h=new Date();h.setHours(0,0,0,0);var lim=new Date(h.getFullYear(),h.getMonth()+4,h.getDate());if(lim.getDate()!=h.getDate())lim=new Date(h.getFullYear(),h.getMonth()+5,0);return d>=h&&d<=lim;}
   function fechaOk(v){if(!v)return true;var m=String(v).match(/^(\d{2})\/(\d{2})\/(\d{4})$/);if(!m)return false;var d=new Date(+m[3],+m[2]-1,+m[1]);return d.getFullYear()==+m[3]&&d.getMonth()==+m[2]-1&&d.getDate()==+m[1]&&d<new Date()&&+m[3]>1900;}
   function msg(t){var b=el('qmsg');b.className='msg'+(t?' err':'');b.textContent=t||'';}
   el('qn').addEventListener('blur',function(){cap(this);});
