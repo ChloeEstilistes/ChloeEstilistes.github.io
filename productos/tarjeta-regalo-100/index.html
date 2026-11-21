@@ -220,6 +220,12 @@
   .ficha .acc a, .ficha .acc button{display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; border-radius:14px; font:inherit; font-size:16px; font-weight:600; text-decoration:none; cursor:pointer}
   .ficha .acc .res{background:var(--wa); color:#08190f; border:0}
   .ficha .acc .otr{background:transparent; color:var(--silver); border:1px solid var(--line); font-weight:400}
+  .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
+  .biz em{font-style:normal; color:var(--muted)}
+  .biz input{width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:rgba(18,17,16,.6); color:var(--silver); font:inherit; font-size:16px}
+  .biz input:focus{outline:none; border-color:var(--gold)}
+  .biz small{font-size:12px; color:var(--muted); line-height:1.45}
+  .biz[hidden]{display:none}
   @media (min-width:700px){
     .ficha{align-items:center}
     .ficha .hoja{border-radius:22px; border-bottom:1px solid var(--line); transform:translateY(30px) scale(.96); opacity:0; transition:transform .45s var(--ease), opacity .35s var(--ease); max-width:760px; display:grid; grid-template-columns:1fr 1fr; align-items:start; padding-bottom:18px}
@@ -246,6 +252,11 @@
   .pp .acc a{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font-size:16px; font-weight:600; text-decoration:none}
   .pp .acc .res{background:var(--wa); color:#08190f}
   .pp .acc .otr{border:1px solid var(--line); font-weight:400}
+  .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
+  .biz em{font-style:normal; color:var(--muted)}
+  .biz input{width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:rgba(18,17,16,.6); color:var(--silver); font:inherit; font-size:16px}
+  .biz input:focus{outline:none; border-color:var(--gold)}
+  .biz small{font-size:12px; color:var(--muted); line-height:1.45}
   .pp .intro a{color:var(--gold)}
   .prod h3 a{text-decoration:none}
   .prod.est{opacity:1; transform:none}
@@ -267,18 +278,37 @@
   <div class="pr">100,00 €</div>
   
   <p class="ds">Tarjeta regalo para cualquier servicio de Chloe Estilistes: color, mechas, balayage, corte, alisados y tratamientos. Pídela por WhatsApp, te la preparamos y la recoges en el salón.</p>
-  <p class="rec">Precio con IVA. Lo reservas por WhatsApp y lo recoges en Chloe Estilistes, Rambla de Prim, 45 bis (Sant Martí, junto a Diagonal Mar, Barcelona), en horario de apertura.</p>
+  <p class="rec">Precio con IVA. Pagas por Bizum (te enviamos la petición a tu móvil y la aceptas) o, si lo prefieres, con tarjeta o en efectivo al recogerla en el salón: Rambla de Prim, 45 bis (Sant Martí, junto a Diagonal Mar, Barcelona).</p>
   <div class="acc">
+    <label class="biz" for="biz"><span>Tu móvil para Bizum <em>(opcional)</em></span>
+      <input id="biz" type="tel" inputmode="tel" autocomplete="tel" placeholder="600 123 456" maxlength="16">
+      <small id="bizAyuda">Te enviamos la petición de Bizum a este número. Si lo dejas vacío, usamos el de tu WhatsApp.</small></label>
     <a class="res" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%20100%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener">Pedir tarjeta por WhatsApp</a>
     <a class="otr" href="/productos/">Ver todos los productos</a>
   </div>
   </div>
   </div>
   <section>
+    <h2>Cómo se compra</h2>
+    <div class="card"><ol><li>Pulsa «Pedir tarjeta por WhatsApp» y, si quieres, dinos a nombre de quién va.</li><li>Te la preparamos y te avisamos cuando esté lista.</li><li>Pagas por Bizum (te enviamos la petición a tu móvil y la aceptas) o, si lo prefieres, con tarjeta o en efectivo al recogerla en el salón.</li><li>La recoges en Chloe Estilistes, Rambla de Prim, 45 bis (junto a Diagonal Mar), en horario de apertura.</li></ol><p class="note">De momento no hacemos envíos: todo se recoge en el salón.</p></div>
+  </section>
+  <section>
     <h2>También te puede interesar</h2>
     <div class="prods"><article class="prod est" id="TARJETA-REGALO-30" data-id="TARJETA-REGALO-30" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-30.jpg" alt="Tarjeta regalo 30 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-30/">Tarjeta regalo 30 €</a></h3><span class="pr">30,00 €</span><a class="pill wa" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%2030%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener">Pedir tarjeta</a></div></article><article class="prod est" id="TARJETA-REGALO-50" data-id="TARJETA-REGALO-50" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-50.jpg" alt="Tarjeta regalo 50 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-50/">Tarjeta regalo 50 €</a></h3><span class="pr">50,00 €</span><a class="pill wa" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%2050%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener">Pedir tarjeta</a></div></article></div>
     <p class="note"><a href="/productos/">Todos los productos</a> · <a href="/">El salón</a></p>
   </section>
+<script>
+(function(){
+  var i = document.getElementById('biz'), a = document.querySelector('.pp .acc .res'), h = document.getElementById('bizAyuda');
+  if (!i || !a) return;
+  var base = a.href, cola = /%20(?:%28|\()Os%20escribo%20desde%20la%20web(?:%29|\))$/, ayuda = h.textContent;
+  i.addEventListener('input', function(){
+    var n = i.value.replace(/[^0-9+]/g, '').replace(/^(\+|00)34/, ''), ok = /^[67][0-9]{8}$/.test(n);
+    a.href = ok && cola.test(base) ? base.replace(cola, function(c){ return encodeURIComponent(' Mi móvil para Bizum: ' + n.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') + '.') + c; }) : base;
+    h.textContent = i.value && !ok ? 'Escribe un móvil español de 9 cifras (empieza por 6 o 7).' : ayuda;
+  });
+})();
+</script>
   <footer>© 2026 Chloe Estilistes · Rambla de Prim, 45 bis · 08019 Barcelona<br><a href="/#privacidad">Aviso legal y privacidad</a></footer>
 </main>
 <div class="sticky"><a href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Quiero%20preguntar%20por%20un%20producto.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.4.2.5.3.1.2.1.7-.1 1.2z"/></svg>Pregúntanos por WhatsApp</a></div>

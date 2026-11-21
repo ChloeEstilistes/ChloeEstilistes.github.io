@@ -20,6 +20,24 @@ WEB = 'https://chloeestilistes.com'
 WA = '34610273609'
 HOY = date.today().isoformat()
 DIR = 'Rambla de Prim, 45 bis'
+pago = lambda regalo=False: f"por Bizum (te enviamos la petición a tu móvil y la aceptas) o, si lo prefieres, con tarjeta o en efectivo al {'recogerla' if regalo else 'recogerlo'} en el salón"
+# Campo opcional del móvil para Bizum: se añade al mensaje de WhatsApp, no se guarda en ningún sitio.
+BIZUM_CAMPO = '''<label class="biz" for="biz"><span>Tu móvil para Bizum <em>(opcional)</em></span>
+      <input id="biz" type="tel" inputmode="tel" autocomplete="tel" placeholder="600 123 456" maxlength="16">
+      <small id="bizAyuda">Te enviamos la petición de Bizum a este número. Si lo dejas vacío, usamos el de tu WhatsApp.</small></label>'''
+BIZUM_JS = '''<script>
+(function(){
+  var i = document.getElementById('biz'), a = document.querySelector('.pp .acc .res'), h = document.getElementById('bizAyuda');
+  if (!i || !a) return;
+  var base = a.href, cola = /%20(?:%28|\\()Os%20escribo%20desde%20la%20web(?:%29|\\))$/, ayuda = h.textContent;
+  i.addEventListener('input', function(){
+    var n = i.value.replace(/[^0-9+]/g, '').replace(/^(\\+|00)34/, ''), ok = /^[67][0-9]{8}$/.test(n);
+    a.href = ok && cola.test(base) ? base.replace(cola, function(c){ return encodeURIComponent(' Mi móvil para Bizum: ' + n.replace(/(\\d{3})(\\d{3})(\\d{3})/, '$1 $2 $3') + '.') + c; }) : base;
+    h.textContent = i.value && !ok ? 'Escribe un móvil español de 9 cifras (empieza por 6 o 7).' : ayuda;
+  });
+})();
+</script>'''
+
 SALON = {'@type': 'HairSalon', '@id': WEB + '/#salon', 'name': 'Chloe Estilistes'}
 
 e = lambda s: html.escape(str(s or ''), quote=True)
@@ -43,9 +61,10 @@ def leer():
             ds = 'Tarjeta regalo para cualquier servicio de Chloe Estilistes: color, mechas, balayage, corte, alisados y tratamientos. Pídela por WhatsApp, te la preparamos y la recoges en el salón.'
         p['ds'] = ds
         msg = (f"¡Hola! Me gustaría una tarjeta regalo de {p['eur']}." if p['regalo']
-               else f"¡Hola! Me gustaría reservar {p['nombre']} ({p['eur']}) para recogerlo en el salón.")
+               else f"¡Hola! Quiero comprar {p['nombre']} ({p['eur']}) y recogerlo en el salón." if p['ok']
+               else f"¡Hola! Me interesa {p['nombre']} ({p['eur']}). ¿Me avisáis cuando lo tengáis?")
         p['wa'] = f'https://wa.me/{WA}?text=' + urllib.parse.quote(msg + ' (Os escribo desde la web)')
-        p['boton'] = 'Pedir tarjeta' if p['regalo'] else ('Reservar' if p['ok'] else 'Avisadme')
+        p['boton'] = 'Pedir tarjeta' if p['regalo'] else ('Comprar' if p['ok'] else 'Avisadme')
     return ps
 
 
@@ -117,6 +136,11 @@ EXTRA_CSS = '''<style>
   .pp .acc a{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font-size:16px; font-weight:600; text-decoration:none}
   .pp .acc .res{background:var(--wa); color:#08190f}
   .pp .acc .otr{border:1px solid var(--line); font-weight:400}
+  .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
+  .biz em{font-style:normal; color:var(--muted)}
+  .biz input{width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:rgba(18,17,16,.6); color:var(--silver); font:inherit; font-size:16px}
+  .biz input:focus{outline:none; border-color:var(--gold)}
+  .biz small{font-size:12px; color:var(--muted); line-height:1.45}
   .pp .intro a{color:var(--gold)}
   .prod h3 a{text-decoration:none}
   .prod.est{opacity:1; transform:none}
@@ -165,6 +189,23 @@ def migas(*items):
         {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(items)]}
 
 
+def como_se_compra(regalo=False):
+    pasos = ([
+        'Pulsa «Pedir tarjeta por WhatsApp» y, si quieres, dinos a nombre de quién va.',
+        'Te la preparamos y te avisamos cuando esté lista.',
+        f'Pagas {pago(True)}.',
+        f'La recoges en Chloe Estilistes, {DIR} (junto a Diagonal Mar), en horario de apertura.',
+    ] if regalo else [
+        'Pulsa «Comprar por WhatsApp» y envíanos el mensaje.',
+        'Te confirmamos que lo tenemos y te lo guardamos.',
+        f'Pagas {pago()}.',
+        f'Lo recoges en Chloe Estilistes, {DIR} (junto a Diagonal Mar), en horario de apertura.',
+    ])
+    return ('<section>\n    <h2>Cómo se compra</h2>\n    <div class="card"><ol>'
+            + ''.join(f'<li>{e(x)}</li>' for x in pasos)
+            + '</ol><p class="note">De momento no hacemos envíos: todo se recoge en el salón.</p></div>\n  </section>')
+
+
 def pagina_producto(p, ps, css):
     marca = p.get('marca') or ''
     if p['regalo']:
@@ -173,7 +214,7 @@ def pagina_producto(p, ps, css):
     else:
         nom = p['nombre'] if p['nombre'].lower().startswith(marca.lower()) else f"{marca} {p['nombre']}".strip()
         titulo = f"{nom} · {p['eur']} en Barcelona | Chloe Estilistes"
-        desc = f"Compra {nom} por {p['eur']} en Chloe Estilistes, peluquería en Rambla de Prim 45 bis (Sant Martí, junto a Diagonal Mar, Barcelona). Resérvalo por WhatsApp y recógelo en el salón."
+        desc = f"Compra {nom} por {p['eur']} en Chloe Estilistes, peluquería en Rambla de Prim 45 bis (Sant Martí, junto a Diagonal Mar, Barcelona). Pídelo por WhatsApp y recógelo en el salón."
     if len(desc) > 165: desc = desc[:162].rsplit(' ', 1)[0] + '…'
     img = p.get('foto') or WEB + '/img/og-chloe-estilistes.jpg?v=2'
     prod = dict(ld_producto(p)); prod['@context'] = 'https://schema.org'
@@ -193,18 +234,21 @@ def pagina_producto(p, ps, css):
   <div class="pr">{p["eur"]}</div>
   {'' if p['ok'] else '<div class="ag">Agotado ahora · pregúntanos y te avisamos cuando llegue</div>'}
   {f'<p class="ds">{e(p["ds"])}</p>' if p['ds'] else ''}
-  <p class="rec">Precio con IVA. Lo reservas por WhatsApp y lo recoges en Chloe Estilistes, {DIR} (Sant Martí, junto a Diagonal Mar, Barcelona), en horario de apertura.</p>
+  <p class="rec">{f"Precio con IVA. Pagas {pago(p['regalo'])}: {DIR} (Sant Martí, junto a Diagonal Mar, Barcelona)." if (p['ok'] or p['regalo']) else f"Precio con IVA. Escríbenos y te avisamos en cuanto llegue; lo recoges en {DIR} (Sant Martí, junto a Diagonal Mar, Barcelona)."}</p>
   <div class="acc">
-    <a class="res" href="{e(p["wa"])}" target="_blank" rel="noopener">{'Pedir tarjeta por WhatsApp' if p['regalo'] else ('Reservar por WhatsApp' if p['ok'] else 'Avisadme cuando llegue')}</a>
+    {BIZUM_CAMPO if (p['ok'] or p['regalo']) else ''}
+    <a class="res" href="{e(p["wa"])}" target="_blank" rel="noopener">{'Pedir tarjeta por WhatsApp' if p['regalo'] else ('Comprar por WhatsApp' if p['ok'] else 'Avisadme cuando llegue')}</a>
     <a class="otr" href="/productos/">Ver todos los productos</a>
   </div>
   </div>
   </div>
+  {como_se_compra(p['regalo']) if (p['ok'] or p['regalo']) else ''}
   <section>
     <h2>También te puede interesar</h2>
     <div class="prods">{"".join(tarjeta(q) for q in otros)}</div>
     <p class="note"><a href="/productos/">Todos los productos</a>{enlace_marca} · <a href="/">El salón</a></p>
   </section>
+{BIZUM_JS if (p['ok'] or p['regalo']) else ''}
 '''
     return cabecera(titulo, desc, p['url'], img, css, lds) + cuerpo + PIE
 
@@ -213,11 +257,12 @@ def pagina_salerm(ps, css):
     sal = [p for p in ps if p.get('marca') == 'Salerm']
     url = WEB + '/salerm/'
     titulo = 'Productos Salerm en Barcelona · Sant Martí, junto a Diagonal Mar | Chloe Estilistes'
-    desc = 'Compra Salerm 21, Biokera y más productos Salerm en Chloe Estilistes, peluquería en Rambla de Prim 45 bis (Sant Martí, junto a Diagonal Mar). Resérvalos por WhatsApp y recógelos en el salón.'
+    desc = 'Compra Salerm 21, Biokera y más productos Salerm en Chloe Estilistes, peluquería en Rambla de Prim 45 bis (Sant Martí, junto a Diagonal Mar). Pídelos por WhatsApp y recógelos en el salón.'
     faqs = [
-        ('¿Dónde comprar Salerm 21 en Barcelona?', f'En Chloe Estilistes, {DIR}, en Sant Martí, a pocos minutos del centro comercial Diagonal Mar. Lo reservas por WhatsApp y lo recoges en el salón.'),
+        ('¿Dónde comprar Salerm 21 en Barcelona?', f'En Chloe Estilistes, {DIR}, en Sant Martí, a pocos minutos del centro comercial Diagonal Mar. Lo compras por WhatsApp y lo recoges en el salón.'),
         ('¿Los productos Salerm son originales?', 'Sí. Son los mismos productos profesionales Salerm que usamos en el salón, comprados directamente a Salerm.'),
         ('¿Qué precio tienen?', 'Los vendemos al precio de la web oficial de Salerm, con IVA incluido. Tienes el precio de cada uno en esta página.'),
+        ('¿Cómo se paga?', f'Pulsa «Comprar» en el producto, envíanos el mensaje de WhatsApp y te confirmamos que lo tenemos. Pagas {pago()}.'),
         ('¿Me aconsejáis cuál me va mejor?', 'Sí. Escríbenos por WhatsApp o pregúntanos en el salón y te recomendamos el producto según tu tipo de pelo, tu color o tus mechas.'),
         ('¿Hacéis envíos?', 'De momento no: los productos se recogen en el salón en horario de apertura.'),
     ]
@@ -233,7 +278,7 @@ def pagina_salerm(ps, css):
   <p class="sub">{DIR} · Sant Martí, junto a Diagonal Mar</p>
   <div class="intro">
     <p>En Chloe Estilistes trabajamos con Salerm en el salón, y tienes sus productos para casa: el clásico Salerm 21, la línea Biokera, champús, mascarillas, ampollas, lacas y planchas.</p>
-    <p>Los vendemos al precio de la web oficial de Salerm. Resérvalos por WhatsApp y los recoges en el salón; si no sabes cuál te va mejor, te aconsejamos según tu pelo.</p>
+    <p>Los vendemos al precio de la web oficial de Salerm. Cómpralos por WhatsApp y los recoges en el salón; si no sabes cuál te va mejor, te aconsejamos según tu pelo.</p>
   </div>
   <div class="prods">{"".join(tarjeta(p) for p in sal)}</div>
   <section class="faq">
