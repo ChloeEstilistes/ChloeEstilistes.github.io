@@ -100,7 +100,15 @@ def tarjeta(p, estatica=True):
             + (f'<p class="ds">{e(p["ds"])}</p>' if p['ds'] and not p['regalo'] else '')
             + f'<span class="pr">{p["eur"]}</span>'
             + ('' if p['ok'] else '<span class="ag">Agotado ahora · pregúntanos</span>')
-            + f'<a class="pill wa" href="{e(p["wa"])}" target="_blank" rel="noopener">{p["boton"]}</a></div></article>')
+            + (boton_cesta(p, 'pill wa') if (p['ok'] or p['regalo'])
+               else f'<a class="pill wa" href="{e(p["wa"])}" target="_blank" rel="noopener">{p["boton"]}</a>')
+            + '</div></article>')
+
+
+def boton_cesta(p, clase):
+    precio = f"{float(p['precio'] or 0):.2f}"
+    return (f'<button type="button" class="{clase} cesta-add" data-id="{e(p["id"])}" data-nombre="{e(p["nombre"])}" '
+            f'data-precio="{precio}" data-url="/productos/{p["slug"]}/">Añadir a la cesta</button>')
 
 
 def entre(texto, marca, nuevo):
@@ -136,6 +144,7 @@ EXTRA_CSS = '''<style>
   .pp .acc a{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font-size:16px; font-weight:600; text-decoration:none}
   .pp .acc .res{background:var(--wa); color:#08190f}
   .pp .acc .otr{border:1px solid var(--line); font-weight:400}
+  .pp .acc button{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font:inherit; font-size:16px; background:transparent; color:var(--silver); cursor:pointer}
   .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
   .biz em{font-style:normal; color:var(--muted)}
   .biz input{width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:rgba(18,17,16,.6); color:var(--silver); font:inherit; font-size:16px}
@@ -166,6 +175,7 @@ def cabecera(titulo, desc, url, imagen, css, lds):
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
 <link rel="preload" href="/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
+<script src="/js/cesta.js?v=1" defer></script>
 {css}{EXTRA_CSS}
 {"".join(ld(x) for x in lds)}
 </head>
@@ -191,12 +201,12 @@ def migas(*items):
 
 def como_se_compra(regalo=False):
     pasos = ([
-        'Pulsa «Pedir tarjeta por WhatsApp» y, si quieres, dinos a nombre de quién va.',
+        'Pulsa «Pedir tarjeta por WhatsApp» (o añádela a la cesta con otros productos) y, si quieres, dinos a nombre de quién va.',
         'Te la preparamos y te avisamos cuando esté lista.',
         f'Pagas {pago(True)}.',
         f'La recoges en Chloe Estilistes, {DIR} (junto a Diagonal Mar), en horario de apertura.',
     ] if regalo else [
-        'Pulsa «Comprar por WhatsApp» y envíanos el mensaje.',
+        'Pulsa «Comprar por WhatsApp» o, si quieres varios productos, añádelos a la cesta y envíanos el pedido de una vez.',
         'Te confirmamos que lo tenemos y te lo guardamos.',
         f'Pagas {pago()}.',
         f'Lo recoges en Chloe Estilistes, {DIR} (junto a Diagonal Mar), en horario de apertura.',
@@ -238,6 +248,7 @@ def pagina_producto(p, ps, css):
   <div class="acc">
     {BIZUM_CAMPO if (p['ok'] or p['regalo']) else ''}
     <a class="res" href="{e(p["wa"])}" target="_blank" rel="noopener">{'Pedir tarjeta por WhatsApp' if p['regalo'] else ('Comprar por WhatsApp' if p['ok'] else 'Avisadme cuando llegue')}</a>
+    {boton_cesta(p, 'otr') if (p['ok'] or p['regalo']) else ''}
     <a class="otr" href="/productos/">Ver todos los productos</a>
   </div>
   </div>
@@ -262,7 +273,7 @@ def pagina_salerm(ps, css):
         ('¿Dónde comprar Salerm 21 en Barcelona?', f'En Chloe Estilistes, {DIR}, en Sant Martí, a pocos minutos del centro comercial Diagonal Mar. Lo compras por WhatsApp y lo recoges en el salón.'),
         ('¿Los productos Salerm son originales?', 'Sí. Son los mismos productos profesionales Salerm que usamos en el salón, comprados directamente a Salerm.'),
         ('¿Qué precio tienen?', 'Los vendemos al precio de la web oficial de Salerm, con IVA incluido. Tienes el precio de cada uno en esta página.'),
-        ('¿Cómo se paga?', f'Pulsa «Comprar» en el producto, envíanos el mensaje de WhatsApp y te confirmamos que lo tenemos. Pagas {pago()}.'),
+        ('¿Cómo se paga?', f'Añade a la cesta los productos que quieras, envíanos el pedido por WhatsApp y te confirmamos que los tenemos. Pagas {pago()}.'),
         ('¿Me aconsejáis cuál me va mejor?', 'Sí. Escríbenos por WhatsApp o pregúntanos en el salón y te recomendamos el producto según tu tipo de pelo, tu color o tus mechas.'),
         ('¿Hacéis envíos?', 'De momento no: los productos se recogen en el salón en horario de apertura.'),
     ]
