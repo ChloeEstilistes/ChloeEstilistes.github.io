@@ -2,7 +2,10 @@
    La cesta se guarda solo en el navegador del cliente (localStorage). No se envía nada
    a ningún sitio hasta que el cliente manda el WhatsApp.
    Botones que añaden: cualquier elemento con class="cesta-add" y data-id, data-nombre,
-   data-precio (número con punto) y data-url. Funciona también con tarjetas creadas por JS. */
+   data-precio (número con punto) y data-url. Funciona también con tarjetas creadas por JS.
+   Sin este script la web sigue funcionando: los enlaces .cesta-add son enlaces normales de
+   WhatsApp («Comprar») y los elementos .cesta-solo quedan ocultos. Al cargar, el script
+   marca <html class="cesta-on">, convierte esos enlaces en «Añadir a la cesta» y los intercepta. */
 (function () {
   var WA = '34610273609', KEY = 'chloe-cesta', MAX = 20;
 
@@ -60,6 +63,7 @@
     '.cesta .acc .otr{background:transparent; color:inherit; border:1px solid var(--line,rgba(236,233,228,.13)); font-weight:400}',
     '.cesta .vaciar{display:block; margin:14px auto 0; background:none; border:0; color:var(--muted,#b4ada3); font:inherit; font-size:13px; text-decoration:underline; cursor:pointer}',
     '.cesta .vacia{color:var(--muted,#b4ada3); padding:20px 0; text-align:center}',
+    '.cesta li .cambio{grid-column:1/-1; font-size:13px; color:var(--gold,#c9a96a)}',
     'body.con-panel{overflow:hidden}'
   ].join('\n');
   document.head.appendChild(css);
@@ -76,7 +80,7 @@
     + '<h2 id="cestaTit">Tu cesta</h2><div id="cestaLista"></div>'
     + '<div id="cestaPie">'
     + '<div class="tot"><span>Total</span><span id="cestaTotal"></span></div>'
-    + '<p class="nota">Precios con IVA. Pagas por Bizum (te enviamos la petición a tu móvil y la aceptas) o con tarjeta o en efectivo al recogerlo. Lo recoges en Rambla de Prim, 45 bis (junto a Diagonal Mar). De momento no hacemos envíos.</p>'
+    + '<p class="nota">Precios con IVA. Antes de pagar te confirmamos precio y disponibilidad por WhatsApp. Pagas por Bizum (te enviamos la petición a tu móvil y la aceptas) o con tarjeta o en efectivo al recogerlo. Lo recoges en Rambla de Prim, 45 bis (junto a Diagonal Mar). De momento no hacemos envíos.</p>'
     + '<label class="biz" for="cestaBiz"><span>Tu móvil para Bizum <em>(opcional)</em></span>'
     + '<input id="cestaBiz" type="tel" inputmode="tel" autocomplete="tel" placeholder="600 123 456" maxlength="16">'
     + '<small id="cestaBizAyuda">Si lo dejas vacío, te enviamos la petición al número de tu WhatsApp.</small></label>'
@@ -119,6 +123,7 @@
       return '<li data-id="' + esc(x.id) + '">'
         + '<div>' + (x.url ? '<a href="' + esc(x.url) + '">' + esc(x.nombre) + '</a>' : esc(x.nombre)) + '<div class="pu">' + eur(x.precio) + ' / unidad</div></div>'
         + '<div class="sub">' + eur(x.precio * x.n) + '</div>'
+        + (isFinite(x.antes) && x.antes !== x.precio ? '<p class="cambio" role="status">El precio ha cambiado desde que lo añadiste: antes ' + eur(x.antes) + ', ahora ' + eur(x.precio) + '.</p>' : '')
         + '<div class="cant"><button type="button" data-menos aria-label="Quitar una unidad de ' + esc(x.nombre) + '">−</button><span aria-live="polite">' + x.n + '</span>'
         + '<button type="button" data-mas aria-label="Añadir una unidad de ' + esc(x.nombre) + '"' + (x.n >= MAX ? ' disabled' : '') + '>+</button></div>'
         + '<button class="quitar" type="button" data-quitar>Quitar</button></li>';
@@ -127,22 +132,63 @@
     enviar.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(mensaje());
   }
 
+  // Mientras la cesta está abierta, el resto de la página queda inerte (no se puede tabular ni pulsar)
+  var inertes = [];
+  function fondoInerte(si) {
+    if (si) {
+      inertes = [].filter.call(document.body.children, function (el) { return el !== panel && !el.inert && el.tagName !== 'SCRIPT'; });
+      inertes.forEach(function (el) { el.inert = true; el.setAttribute('aria-hidden', 'true'); });
+    } else {
+      inertes.forEach(function (el) { el.inert = false; el.removeAttribute('aria-hidden'); });
+      inertes = [];
+    }
+  }
+  function enfocables() {
+    return [].filter.call(panel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled])'), function (el) {
+      return !el.closest('[hidden]') && el.offsetParent !== null;
+    });
+  }
   function abrir() {
+    sincronizar();
     origen = document.activeElement;
     panel.hidden = false; document.body.classList.add('con-panel');
+    fondoInerte(true);
     panel.querySelector('.x').focus({ preventScroll: true });
   }
   function cerrar() {
     if (panel.hidden) return;
     panel.hidden = true; document.body.classList.remove('con-panel');
-    if (origen && origen.focus) origen.focus({ preventScroll: true });
+    fondoInerte(false);
+    // los avisos de «el precio ha cambiado» ya se han visto
+    var habia = items.some(function (x) { return 'antes' in x; });
+    items.forEach(function (x) { delete x.antes; });
+    if (habia) guardar();
+    if (origen && origen.focus && document.contains(origen)) origen.focus({ preventScroll: true });
+  }
+
+  // Precios al día: los botones de la página que se ve llevan el precio actual de la hoja
+  function actualizar(x, b) {
+    var precio = parseFloat(b.getAttribute('data-precio')), nombre = b.getAttribute('data-nombre'), url = b.getAttribute('data-url');
+    var cambio = false;
+    if (isFinite(precio) && precio !== x.precio) { if (!('antes' in x)) x.antes = x.precio; x.precio = precio; cambio = true; }
+    if (nombre && nombre !== x.nombre) { x.nombre = nombre; cambio = true; }
+    if (url && url !== x.url) { x.url = url; cambio = true; }
+    return cambio;
+  }
+  function sincronizar(raiz) {
+    var cambio = false;
+    [].forEach.call((raiz || document).querySelectorAll('.cesta-add[data-id]'), function (b) {
+      var x = buscar(b.getAttribute('data-id'));
+      if (x && actualizar(x, b)) cambio = true;
+    });
+    if (cambio) guardar();
   }
 
   function anadir(b) {
     var id = b.getAttribute('data-id'), precio = parseFloat(b.getAttribute('data-precio'));
     if (!id || !isFinite(precio)) return;
     var x = buscar(id);
-    if (x) x.n = Math.min(x.n + 1, MAX);
+    if (x) { actualizar(x, b); x.n = Math.min(x.n + 1, MAX); }
     else items.push({ id: id, nombre: b.getAttribute('data-nombre') || id, precio: precio, url: b.getAttribute('data-url') || '', n: 1 });
     guardar();
     var t = b.getAttribute('data-texto') || b.textContent;
@@ -159,13 +205,33 @@
   panel.addEventListener('click', function (ev) {
     if (ev.target.closest('[data-cerrar-cesta]')) { cerrar(); return; }
     var li = ev.target.closest('li[data-id]'); if (!li) return;
-    var x = buscar(li.getAttribute('data-id')); if (!x) return;
-    if (ev.target.closest('[data-mas]')) x.n = Math.min(x.n + 1, MAX);
-    else if (ev.target.closest('[data-menos]')) x.n -= 1;
-    else if (ev.target.closest('[data-quitar]')) x.n = 0;
-    else return;
+    var id = li.getAttribute('data-id'), x = buscar(id); if (!x) return;
+    var accion = ev.target.closest('[data-mas]') ? 'data-mas' : ev.target.closest('[data-menos]') ? 'data-menos' : ev.target.closest('[data-quitar]') ? 'data-quitar' : '';
+    if (!accion) return;
+    var pos = items.indexOf(x);
+    if (accion === 'data-mas') x.n = Math.min(x.n + 1, MAX);
+    else if (accion === 'data-menos') x.n -= 1;
+    else x.n = 0;
     items = items.filter(function (y) { return y.n > 0; });
     guardar();
+    // El foco vuelve al mismo control de la fila; si la fila ya no está, a la siguiente; si no queda nada, a cerrar
+    var fila = null;
+    [].forEach.call(lista.querySelectorAll('li[data-id]'), function (l) { if (l.getAttribute('data-id') === id) fila = l; });
+    var destino = fila && (fila.querySelector('[' + accion + ']:not([disabled])') || fila.querySelector('[data-menos]'));
+    if (!destino) {
+      var filas = lista.querySelectorAll('li[data-id]');
+      var otra = filas[Math.min(pos, filas.length - 1)];
+      destino = otra ? otra.querySelector('[data-quitar]') : panel.querySelector('.x');
+    }
+    if (destino) destino.focus({ preventScroll: false });
+  });
+  // El tabulador da la vuelta dentro de la cesta (para navegadores sin «inert»)
+  panel.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Tab') return;
+    var f = enfocables(); if (!f.length) return;
+    var primero = f[0], ultimo = f[f.length - 1];
+    if (ev.shiftKey && document.activeElement === primero) { ev.preventDefault(); ultimo.focus(); }
+    else if (!ev.shiftKey && document.activeElement === ultimo) { ev.preventDefault(); primero.focus(); }
   });
   panel.querySelector('#cestaVaciar').addEventListener('click', function () { items = []; guardar(); cerrar(); });
   biz.addEventListener('input', function () {
@@ -178,6 +244,25 @@
   }, true);
   // Si la cesta cambia en otra pestaña, se actualiza aquí
   window.addEventListener('storage', function (ev) { if (ev.key === KEY) { items = leer(); pintar(); } });
+
+  // Los enlaces de compra por WhatsApp (.cesta-add) pasan a ser «Añadir a la cesta» solo ahora que la cesta funciona
+  function etiquetar(raiz) {
+    [].forEach.call((raiz || document).querySelectorAll('a.cesta-add:not([data-cesta-lista])'), function (a) {
+      a.setAttribute('data-cesta-lista', '');
+      a.setAttribute('role', 'button');
+      a.textContent = 'Añadir a la cesta';
+    });
+  }
+  document.documentElement.classList.add('cesta-on');
+  etiquetar();
+  sincronizar();
+  // El catálogo crea sus tarjetas más tarde con JavaScript: se etiquetan y se comparan precios al aparecer
+  if ('MutationObserver' in window) {
+    new MutationObserver(function (cambios) {
+      var hay = cambios.some(function (c) { return c.addedNodes.length; });
+      if (hay) { etiquetar(); sincronizar(); }
+    }).observe(document.body, { childList: true, subtree: true });
+  }
 
   pintar();
 })();

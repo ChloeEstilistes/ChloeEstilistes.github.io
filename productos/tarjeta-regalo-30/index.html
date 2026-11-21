@@ -15,7 +15,7 @@
 <meta property="og:description" content="Tarjeta regalo 30 € de Chloe Estilistes, peluquería en Rambla de Prim 45 bis (Sant Martí, junto a Diagonal Mar). Para cualquier servicio. Pídela por WhatsApp y…">
 <meta property="og:type" content="website">
 <link rel="preload" href="/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
-<script src="/js/cesta.js?v=1" defer></script>
+<script src="/js/cesta.js?v=2" defer></script>
 <style>@font-face{font-family:"Josefin Sans";font-style:normal;font-weight:300 600;font-display:swap;src:url(/fonts/josefin-sans.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}.price{margin-top:6px; font-size:15px; font-weight:600; color:var(--gold)}
 </style><style>
   :root{
@@ -227,6 +227,7 @@
   .biz input:focus{outline:none; border-color:var(--gold)}
   .biz small{font-size:12px; color:var(--muted); line-height:1.45}
   .biz[hidden], .ficha .acc [hidden]{display:none}
+  html:not(.cesta-on) .cesta-solo{display:none !important}
   @media (min-width:700px){
     .ficha{align-items:center}
     .ficha .hoja{border-radius:22px; border-bottom:1px solid var(--line); transform:translateY(30px) scale(.96); opacity:0; transition:transform .45s var(--ease), opacity .35s var(--ease); max-width:760px; display:grid; grid-template-columns:1fr 1fr; align-items:start; padding-bottom:18px}
@@ -253,6 +254,7 @@
   .pp .acc a{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font-size:16px; font-weight:600; text-decoration:none}
   .pp .acc .res{background:var(--wa); color:#08190f}
   .pp .acc .otr{border:1px solid var(--line); font-weight:400}
+  html:not(.cesta-on) .cesta-solo{display:none !important}
   .pp .acc button{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font:inherit; font-size:16px; background:transparent; color:var(--silver); cursor:pointer}
   .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
   .biz em{font-style:normal; color:var(--muted)}
@@ -286,7 +288,7 @@
       <input id="biz" type="tel" inputmode="tel" autocomplete="tel" placeholder="600 123 456" maxlength="16">
       <small id="bizAyuda">Te enviamos la petición de Bizum a este número. Si lo dejas vacío, usamos el de tu WhatsApp.</small></label>
     <a class="res" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%2030%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener">Pedir tarjeta por WhatsApp</a>
-    <button type="button" class="otr cesta-add" data-id="TARJETA-REGALO-30" data-nombre="Tarjeta regalo 30 €" data-precio="30.00" data-url="/productos/tarjeta-regalo-30/">Añadir a la cesta</button>
+    <button type="button" class="otr cesta-add cesta-solo" data-id="TARJETA-REGALO-30" data-nombre="Tarjeta regalo 30 €" data-precio="30.00" data-url="/productos/tarjeta-regalo-30/">Añadir a la cesta</button>
     <a class="otr" href="/productos/">Ver todos los productos</a>
   </div>
   </div>
@@ -297,7 +299,7 @@
   </section>
   <section>
     <h2>También te puede interesar</h2>
-    <div class="prods"><article class="prod est" id="TARJETA-REGALO-50" data-id="TARJETA-REGALO-50" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-50.jpg" alt="Tarjeta regalo 50 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-50/">Tarjeta regalo 50 €</a></h3><span class="pr">50,00 €</span><button type="button" class="pill wa cesta-add" data-id="TARJETA-REGALO-50" data-nombre="Tarjeta regalo 50 €" data-precio="50.00" data-url="/productos/tarjeta-regalo-50/">Añadir a la cesta</button></div></article><article class="prod est" id="TARJETA-REGALO-100" data-id="TARJETA-REGALO-100" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-100.jpg" alt="Tarjeta regalo 100 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-100/">Tarjeta regalo 100 €</a></h3><span class="pr">100,00 €</span><button type="button" class="pill wa cesta-add" data-id="TARJETA-REGALO-100" data-nombre="Tarjeta regalo 100 €" data-precio="100.00" data-url="/productos/tarjeta-regalo-100/">Añadir a la cesta</button></div></article></div>
+    <div class="prods"><article class="prod est" id="TARJETA-REGALO-50" data-id="TARJETA-REGALO-50" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-50.jpg" alt="Tarjeta regalo 50 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-50/">Tarjeta regalo 50 €</a></h3><span class="pr">50,00 €</span><a class="pill wa cesta-add" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%2050%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener" data-id="TARJETA-REGALO-50" data-nombre="Tarjeta regalo 50 €" data-precio="50.00" data-url="/productos/tarjeta-regalo-50/">Pedir tarjeta</a></div></article><article class="prod est" id="TARJETA-REGALO-100" data-id="TARJETA-REGALO-100" tabindex="0"><div class="ph"><img src="https://chloeestilistes.com/img/productos/TARJETA-REGALO-100.jpg" alt="Tarjeta regalo 100 €" loading="lazy" width="600" height="600"></div><div class="in"><span class="mk">Chloe Estilistes</span><h3><a href="/productos/tarjeta-regalo-100/">Tarjeta regalo 100 €</a></h3><span class="pr">100,00 €</span><a class="pill wa cesta-add" href="https://wa.me/34610273609?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20una%20tarjeta%20regalo%20de%20100%2C00%20%E2%82%AC.%20%28Os%20escribo%20desde%20la%20web%29" target="_blank" rel="noopener" data-id="TARJETA-REGALO-100" data-nombre="Tarjeta regalo 100 €" data-precio="100.00" data-url="/productos/tarjeta-regalo-100/">Pedir tarjeta</a></div></article></div>
     <p class="note"><a href="/productos/">Todos los productos</a> · <a href="/">El salón</a></p>
   </section>
 <script>

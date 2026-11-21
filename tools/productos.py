@@ -100,15 +100,21 @@ def tarjeta(p, estatica=True):
             + (f'<p class="ds">{e(p["ds"])}</p>' if p['ds'] and not p['regalo'] else '')
             + f'<span class="pr">{p["eur"]}</span>'
             + ('' if p['ok'] else '<span class="ag">Agotado ahora · pregúntanos</span>')
-            + (boton_cesta(p, 'pill wa') if (p['ok'] or p['regalo'])
+            + (boton_cesta(p, 'pill wa', enlace=True) if (p['ok'] or p['regalo'])
                else f'<a class="pill wa" href="{e(p["wa"])}" target="_blank" rel="noopener">{p["boton"]}</a>')
             + '</div></article>')
 
 
-def boton_cesta(p, clase):
-    precio = f"{float(p['precio'] or 0):.2f}"
-    return (f'<button type="button" class="{clase} cesta-add" data-id="{e(p["id"])}" data-nombre="{e(p["nombre"])}" '
-            f'data-precio="{precio}" data-url="/productos/{p["slug"]}/">Añadir a la cesta</button>')
+def boton_cesta(p, clase, enlace=False):
+    """Botón de la cesta (js/cesta.js).
+    enlace=True: enlace normal de WhatsApp («Comprar» / «Pedir tarjeta») que la cesta, si carga,
+    convierte en «Añadir a la cesta». Así, sin JavaScript, se sigue pudiendo comprar.
+    enlace=False: botón que solo existe con la cesta (.cesta-solo: oculto si no carga)."""
+    datos = (f'data-id="{e(p["id"])}" data-nombre="{e(p["nombre"])}" '
+             f'data-precio="{float(p["precio"] or 0):.2f}" data-url="/productos/{p["slug"]}/"')
+    if enlace:
+        return f'<a class="{clase} cesta-add" href="{e(p["wa"])}" target="_blank" rel="noopener" {datos}>{p["boton"]}</a>'
+    return f'<button type="button" class="{clase} cesta-add cesta-solo" {datos}>Añadir a la cesta</button>'
 
 
 def entre(texto, marca, nuevo):
@@ -144,6 +150,7 @@ EXTRA_CSS = '''<style>
   .pp .acc a{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font-size:16px; font-weight:600; text-decoration:none}
   .pp .acc .res{background:var(--wa); color:#08190f}
   .pp .acc .otr{border:1px solid var(--line); font-weight:400}
+  html:not(.cesta-on) .cesta-solo{display:none !important}
   .pp .acc button{display:flex; align-items:center; justify-content:center; gap:8px; padding:15px; border-radius:14px; font:inherit; font-size:16px; background:transparent; color:var(--silver); cursor:pointer}
   .biz{display:grid; gap:6px; font-size:14px; color:var(--silver)}
   .biz em{font-style:normal; color:var(--muted)}
@@ -175,7 +182,7 @@ def cabecera(titulo, desc, url, imagen, css, lds):
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
 <link rel="preload" href="/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
-<script src="/js/cesta.js?v=1" defer></script>
+<script src="/js/cesta.js?v=2" defer></script>
 {css}{EXTRA_CSS}
 {"".join(ld(x) for x in lds)}
 </head>
